@@ -10,7 +10,7 @@ Complete implementation guide for a production-grade medical note processing sys
 
 - [Overview](#overview)
 - [Features](#features)
-- [Quick Start](#quick-start)
+- [Getting Started](#getting-started)
 - [Implementation Plan](#implementation-plan)
 - [Testing](#testing)
 - [API Documentation](#api-documentation)
@@ -34,7 +34,7 @@ This system automates medical document processing workflows through:
 
 ### Part 1: FastAPI Backend
 - ✅ Health check endpoint
-- ✅ Full CRUD operations for documents
+- ✅ Full CRUD operations for documents (supports partial updates)
 - ✅ SQLAlchemy ORM with PostgreSQL
 - ✅ Pydantic validation
 
@@ -206,7 +206,7 @@ http://localhost:8000
 - `GET /documents` - List all document IDs
 - `POST /documents` - Create new document
 - `GET /documents/{id}` - Get document by ID
-- `PUT /documents/{id}` - Update document
+- `PUT /documents/{id}` - Update document (partial updates supported)
 - `DELETE /documents/{id}` - Delete document
 
 #### Part 2: LLM
