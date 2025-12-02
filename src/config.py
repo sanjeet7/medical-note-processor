@@ -10,12 +10,10 @@ class Settings(BaseSettings):
     app_name: str = "Medical Note Processor"
     debug: bool = False
     
-    # LLM Configuration (for Part 2)
+    # LLM Configuration
     llm_provider: str = "openai"  # 'openai' or 'ollama'
-    llm_model: str = "gpt-5"
-    openai_api_key: str = ""
-    ollama_base_url: str = "http://localhost:11434"
-    ollama_model: str = "llama2"
+    llm_model: str = "gpt-5.1"
+    llm_api_key: str = ""
     
     # Embedding Configuration (for Part 3)
     embedding_provider: str = "openai"

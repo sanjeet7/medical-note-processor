@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, JSON
 from datetime import datetime
 import hashlib
+
 from .database import Base
 
 class Document(Base):

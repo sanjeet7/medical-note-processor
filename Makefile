@@ -6,7 +6,16 @@ setup:
 	cp .env.example .env
 
 test:
+	. venv/bin/activate && pytest tests/ -v
+
+test-part1:
 	. venv/bin/activate && pytest tests/test_part1.py -v
+
+test-part2:
+	. venv/bin/activate && pytest tests/test_part2.py tests/test_llm_connection.py -v
+
+test-llm-connection:
+	. venv/bin/activate && pytest tests/test_llm_connection.py -v
 
 db-up:
 	docker-compose -f docker-compose.dev.yml up -d

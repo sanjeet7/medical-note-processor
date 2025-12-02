@@ -122,3 +122,79 @@ def delete_document(document_id: int, db: Session = Depends(database.get_db)):
     db.delete(db_document)
     db.commit()
     return None
+
+from .services.llm_service import LLMService
+from .schemas import SummarizeRequest, SummarizeResponse, QueryRequest, QueryResponse
+
+@app.post("/summarize_note", response_model=SummarizeResponse)
+async def summarize_note(
+    request: SummarizeRequest,
+    db: Session = Depends(database.get_db)
+):
+    """Summarize a medical note using LLM with caching"""
+    try:
+        # Get text from document_id or use provided text
+        if request.document_id:
+            document = db.query(models.Document).filter(
+                models.Document.id == request.document_id
+            ).first()
+            if not document:
+                raise HTTPException(status_code=404, detail="Document not found")
+            note_text = document.content
+        elif request.text:
+            note_text = request.text
+        else:
+            raise HTTPException(status_code=400, detail="Either document_id or text must be provided")
+        
+        service = LLMService(db)
+        result = await service.summarize_note(note_text)
+        # Map generic result to specific response schema
+        return {
+            "summary": result["result"],
+            "cached": result["cached"],
+            "provider": result["provider"],
+            "model": result["model"]
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"LLM summarization failed: {str(e)}"
+        )
+
+@app.post("/query_note", response_model=QueryResponse)
+async def query_note(
+    request: QueryRequest,
+    db: Session = Depends(database.get_db)
+):
+    """Query a medical note using LLM with caching"""
+    try:
+        # Get text from document_id or use provided text
+        if request.document_id:
+            document = db.query(models.Document).filter(
+                models.Document.id == request.document_id
+            ).first()
+            if not document:
+                raise HTTPException(status_code=404, detail="Document not found")
+            note_text = document.content
+        elif request.text:
+            note_text = request.text
+        else:
+            raise HTTPException(status_code=400, detail="Either document_id or text must be provided")
+        
+        service = LLMService(db)
+        result = await service.query_note(note_text, request.query)
+        return {
+            "answer": result["result"],
+            "cached": result["cached"],
+            "provider": result["provider"],
+            "model": result["model"]
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"LLM query failed: {str(e)}"
+        )

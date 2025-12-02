@@ -34,15 +34,16 @@ This system automates medical document processing workflows through:
 
 ### Part 1: FastAPI Backend
 - ✅ Health check endpoint
-- ✅ Full CRUD operations for documents (supports partial updates)
-- ✅ SQLAlchemy ORM with PostgreSQL
-- ✅ Pydantic validation
+- ✅ Full- **CRUD Operations**: Full create, read, update, delete support with validation
+- **Partial Updates**: PUT endpoint supports updating only specific fields
+- **Database Seeding**: 6 sample SOAP notes included
 
-### Part 2: LLM Integration
-- ✅ Provider-agnostic architecture (OpenAI, Ollama)
-- ✅ Medical note summarization
-- ✅ Response caching in database
-- ✅ Error handling and retries
+### Part 2 LLM Integration:
+- OpenAI and Anthropic provider support
+- `/summarize_note` - Summarize medical notes using LLM
+- `/query_note` - Ask specific questions about medical notes
+- Response caching to reduce API costs
+- Document ID or raw text input support
 
 ### Part 3: RAG Pipeline
 - ✅ Medical guidelines knowledge base
@@ -191,6 +192,109 @@ docker-compose exec api pytest tests/evaluation/test_agent_eval.py -v
 See [docs/API_EXAMPLES.md](./docs/API_EXAMPLES.md) for curl examples.
 
 ---
+
+## 📖 API Documentation
+
+### Part 1: Core Endpoints
+
+#### GET /health
+Health check endpoint that returns system status.
+
+**Response:**
+```json
+{"status": "ok"}
+```
+
+#### GET /documents
+Fetch list of all document IDs.
+
+**Response:**
+```json
+[1, 2, 3, 4, 5, 6]
+```
+
+#### GET /documents/{document_id}
+Fetch a specific document by ID.
+
+#### POST /documents
+Create a new document.
+
+#### PUT /documents/{document_id}
+Update a document (supports partial updates).
+
+#### DELETE /documents/{document_id}
+Delete a document.
+
+### Part 2: LLM Endpoints
+
+#### POST /summarize_note
+Summarize a medical note using LLM with automatic caching.
+
+**Request (with document_id):**
+```json
+{
+  "document_id": 1
+}
+```
+
+**Request (with raw text):**
+```json
+{
+  "text": "Patient presents with chest pain, BP 140/90..."
+}
+```
+
+**Response:**
+```json
+{
+  "summary": "Patient: 45M, presents with chest pain...",
+  "cached": false,
+  "provider": "openai",
+  "model": "gpt-5.1"
+}
+```
+
+#### POST /query_note
+Ask specific questions about a medical note.
+
+**Request:**
+```json
+{
+  "document_id": 2,
+  "query": "What medications were prescribed?"
+}
+```
+
+**Response:**
+```json
+{
+  "answer": "The patient was prescribed Lisinopril 10mg daily...",
+  "cached": false,
+  "provider": "openai",
+  "model": "gpt-5.1"
+}
+```
+
+**Note:** Both endpoints support `document_id` (preferred) or `text` (fallback). If both are provided, `document_id` takes priority.
+
+### Configuration
+
+**Environment Variables (.env):**
+```env
+# Database
+DATABASE_URL=postgresql://medical_user:medical_pass@localhost:5432/medical_notes
+
+# LLM Provider
+LLM_PROVIDER=openai  # or 'anthropic'
+LLM_MODEL=gpt-5.1    # or 'claude-sonnet-4-5'
+LLM_API_KEY=your_api_key_here
+```
+
+**Switching Providers:**
+- OpenAI: Set `LLM_PROVIDER=openai` and use your OpenAI API key
+- Anthropic: Set `LLM_PROVIDER=anthropic` and use your Anthropic API key
+
+Both providers use the same `LLM_API_KEY` environment variable.
 
 ## 📖 API Documentation
 

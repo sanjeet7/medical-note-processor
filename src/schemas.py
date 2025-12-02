@@ -36,11 +36,38 @@ class DocumentResponse(DocumentBase):
 # Summarization schemas (for Part 2)
 class SummarizeRequest(BaseModel):
     """Request schema for note summarization"""
-    text: str = Field(..., min_length=1)
+    document_id: Optional[int] = None
+    text: Optional[str] = Field(None, min_length=1)
+    
+    @classmethod
+    def validate_input(cls, values):
+        if not values.get('document_id') and not values.get('text'):
+            raise ValueError("Either document_id or text must be provided")
+        return values
 
 class SummarizeResponse(BaseModel):
     """Response schema for note summarization"""
     summary: str
+    cached: bool
+    provider: str
+    model: str
+
+# Query schemas
+class QueryRequest(BaseModel):
+    """Request schema for note querying"""
+    document_id: Optional[int] = None
+    text: Optional[str] = Field(None, min_length=1)
+    query: str = Field(..., min_length=1)
+    
+    @classmethod
+    def validate_input(cls, values):
+        if not values.get('document_id') and not values.get('text'):
+            raise ValueError("Either document_id or text must be provided")
+        return values
+
+class QueryResponse(BaseModel):
+    """Response schema for note querying"""
+    answer: str
     cached: bool
     provider: str
     model: str
