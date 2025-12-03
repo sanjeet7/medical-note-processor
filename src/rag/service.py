@@ -1,4 +1,5 @@
 """RAG service for medical question answering"""
+import json
 from typing import List, Dict, Optional
 from dataclasses import dataclass
 from src.rag.retriever import HybridRetriever, RetrievedChunk

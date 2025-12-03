@@ -697,8 +697,8 @@ class TestExtractStructuredEndpoint:
         from src.main import app
         from src.database import Base, get_db
         
-        # Use in-memory SQLite for testing
-        engine = create_engine("sqlite:///./test_part4.db", connect_args={"check_same_thread": False})
+        # Use SQLite in /tmp for container compatibility
+        engine = create_engine("sqlite:////tmp/test_part4.db", connect_args={"check_same_thread": False})
         TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         Base.metadata.create_all(bind=engine)
         

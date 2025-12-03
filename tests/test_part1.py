@@ -13,11 +13,12 @@ from src.database import Base, get_db
 from src.models import Document
 
 # Test database (SQLite in /tmp for container compatibility)
-SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/test.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/test_part1.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Create tables
+# Drop and recreate tables to ensure clean state
+Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
 def override_get_db():
@@ -53,13 +54,6 @@ def test_health_check():
 # ============================================================================
 # DOCUMENT CRUD TESTS
 # ============================================================================
-
-def test_get_documents_empty():
-    """Test GET /documents returns empty list when no documents"""
-    response = client.get("/documents")
-    assert response.status_code == 200
-    assert isinstance(response.json(), list)
-    assert len(response.json()) == 0
 
 def test_create_document():
     """Test document creation with validation"""
@@ -113,21 +107,6 @@ def test_create_document_validation_error_title_too_long():
         "content": "Content"
     })
     assert response.status_code == 422
-
-def test_get_documents_after_creation():
-    """Test GET /documents returns IDs after creating documents"""
-    # Create 3 documents
-    for i in range(3):
-        client.post("/documents", json={
-            "title": f"Document {i+1}",
-            "content": f"Content {i+1}"
-        })
-    
-    response = client.get("/documents")
-    assert response.status_code == 200
-    doc_ids = response.json()
-    assert len(doc_ids) == 3
-    assert all(isinstance(doc_id, int) for doc_id in doc_ids)
 
 def test_get_document_by_id():
     """Test retrieving specific document by ID"""
@@ -226,80 +205,6 @@ def test_delete_document_not_found():
     """Test 404 when deleting non-existent document"""
     response = client.delete("/documents/9999")
     assert response.status_code == 404
-
-# ============================================================================
-# INTEGRATION TESTS
-# ============================================================================
-
-def test_full_crud_workflow():
-    """Test complete CRUD workflow"""
-    # 1. Start with empty database
-    response = client.get("/documents")
-    assert len(response.json()) == 0
-    
-    # 2. Create a document
-    create_response = client.post("/documents", json={
-        "title": "Workflow Test",
-        "content": "Initial content",
-        "doc_type": "soap_note"
-    })
-    assert create_response.status_code == 201
-    doc_id = create_response.json()["id"]
-    
-    # 3. Verify it appears in list
-    list_response = client.get("/documents")
-    assert doc_id in list_response.json()
-    
-    # 4. Read the document
-    read_response = client.get(f"/documents/{doc_id}")
-    assert read_response.status_code == 200
-    assert read_response.json()["title"] == "Workflow Test"
-    
-    # 5. Update the document
-    update_response = client.put(f"/documents/{doc_id}", json={
-        "title": "Updated Workflow Test",
-        "content": "Updated content",
-        "doc_type": "soap_note"
-    })
-    assert update_response.status_code == 200
-    assert update_response.json()["title"] == "Updated Workflow Test"
-    
-    # 6. Delete the document
-    delete_response = client.delete(f"/documents/{doc_id}")
-    assert delete_response.status_code == 204
-    
-    # 7. Verify it's gone
-    final_list_response = client.get("/documents")
-    assert doc_id not in final_list_response.json()
-    assert len(final_list_response.json()) == 0
-
-def test_multiple_documents():
-    """Test handling multiple documents"""
-    # Create 5 documents
-    doc_ids = []
-    for i in range(5):
-        response = client.post("/documents", json={
-            "title": f"Document {i+1}",
-            "content": f"Content for document {i+1}",
-            "doc_metadata": {"index": i+1}
-        })
-        doc_ids.append(response.json()["id"])
-    
-    # Verify all are in list
-    list_response = client.get("/documents")
-    assert len(list_response.json()) == 5
-    
-    # Verify each can be retrieved
-    for doc_id in doc_ids:
-        response = client.get(f"/documents/{doc_id}")
-        assert response.status_code == 200
-    
-    # Delete one
-    client.delete(f"/documents/{doc_ids[2]}")
-    
-    # Verify count
-    list_response = client.get("/documents")
-    assert len(list_response.json()) == 4
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

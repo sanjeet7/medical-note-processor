@@ -417,7 +417,7 @@ class TestToFHIREndpoint:
         from src.main import app
         from src.database import Base, get_db
         
-        engine = create_engine("sqlite:///./test_part5.db", connect_args={"check_same_thread": False})
+        engine = create_engine("sqlite:////tmp/test_part5.db", connect_args={"check_same_thread": False})
         TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         Base.metadata.create_all(bind=engine)
         
@@ -543,7 +543,7 @@ class TestCaching:
         from src.database import Base, get_db
         from src import models
         
-        engine = create_engine("sqlite:///./test_caching.db", connect_args={"check_same_thread": False})
+        engine = create_engine("sqlite:////tmp/test_caching.db", connect_args={"check_same_thread": False})
         TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         Base.metadata.create_all(bind=engine)
         
