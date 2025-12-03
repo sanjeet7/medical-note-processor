@@ -248,3 +248,233 @@ async def answer_question(request: AnswerQuestionRequest):
             status_code=500,
             detail=f"RAG question answering failed: {str(e)}"
         )
+
+
+# ============================================================================
+# PART 4 ENDPOINT - Structured Data Extraction Agent
+# ============================================================================
+
+from .agent import ExtractionAgent
+from .schemas import (
+    ExtractStructuredRequest,
+    ExtractStructuredResponse,
+    StructuredNoteResponse,
+    TrajectoryResponse,
+    TrajectoryStepResponse,
+    PatientResponse,
+    ConditionResponse,
+    MedicationResponse,
+    VitalSignResponse,
+    LabResultResponse,
+    ProcedureResponse,
+    CarePlanResponse,
+    EncounterResponse,
+    ProviderResponse,
+    CodeableConceptResponse,
+    DosageResponse,
+)
+
+
+def _convert_structured_note(note) -> StructuredNoteResponse:
+    """Convert StructuredNote model to response schema."""
+    
+    def convert_codeable(code) -> CodeableConceptResponse:
+        return CodeableConceptResponse(
+            code=code.code,
+            system=code.system,
+            display=code.display
+        )
+    
+    def convert_dosage(dosage) -> DosageResponse:
+        if not dosage:
+            return None
+        return DosageResponse(
+            text=dosage.text,
+            dose_value=dosage.dose_value,
+            dose_unit=dosage.dose_unit,
+            route=dosage.route,
+            frequency=dosage.frequency
+        )
+    
+    return StructuredNoteResponse(
+        patient=PatientResponse(
+            identifier=note.patient.identifier,
+            name=note.patient.name,
+            birth_date=str(note.patient.birth_date) if note.patient.birth_date else None,
+            gender=note.patient.gender.value if note.patient.gender else None
+        ) if note.patient else None,
+        
+        encounter=EncounterResponse(
+            date=str(note.encounter.encounter_date) if note.encounter and note.encounter.encounter_date else None,
+            type=note.encounter.encounter_type if note.encounter else None,
+            reason=note.encounter.reason if note.encounter else None
+        ) if note.encounter else None,
+        
+        provider=ProviderResponse(
+            name=note.provider.name if note.provider else None,
+            specialty=note.provider.specialty if note.provider else None,
+            credentials=note.provider.credentials if note.provider else None
+        ) if note.provider else None,
+        
+        conditions=[
+            ConditionResponse(
+                code=convert_codeable(c.code),
+                clinical_status=c.clinical_status.value,
+                verification_status=c.verification_status.value,
+                onset_date=str(c.onset_date) if c.onset_date else None,
+                note=c.note
+            )
+            for c in note.conditions
+        ],
+        
+        medications=[
+            MedicationResponse(
+                code=convert_codeable(m.code),
+                status=m.status.value,
+                dosage=convert_dosage(m.dosage),
+                dispense_quantity=m.dispense_quantity,
+                refills=m.refills,
+                as_needed=m.as_needed,
+                reason=m.reason
+            )
+            for m in note.medications
+        ],
+        
+        vital_signs=[
+            VitalSignResponse(
+                code=convert_codeable(v.code),
+                value=v.value,
+                unit=v.unit,
+                value_string=v.value_string,
+                interpretation=v.interpretation
+            )
+            for v in note.vital_signs
+        ],
+        
+        lab_results=[
+            LabResultResponse(
+                code=convert_codeable(l.code),
+                value=l.value,
+                value_string=l.value_string,
+                unit=l.unit,
+                reference_range=l.reference_range,
+                interpretation=l.interpretation
+            )
+            for l in note.lab_results
+        ],
+        
+        procedures=[
+            ProcedureResponse(
+                code=convert_codeable(p.code),
+                status=p.status.value,
+                body_site=p.body_site,
+                note=p.note
+            )
+            for p in note.procedures
+        ],
+        
+        care_plan=[
+            CarePlanResponse(
+                description=c.description,
+                status=c.status.value,
+                category=c.category,
+                scheduled_string=c.scheduled_string,
+                note=c.note
+            )
+            for c in note.care_plan
+        ],
+        
+        extraction_timestamp=note.extraction_timestamp.isoformat() if note.extraction_timestamp else None
+    )
+
+
+def _convert_trajectory(trajectory) -> TrajectoryResponse:
+    """Convert Trajectory model to response schema."""
+    return TrajectoryResponse(
+        agent_name=trajectory.agent_name,
+        started_at=trajectory.started_at.isoformat(),
+        completed_at=trajectory.completed_at.isoformat() if trajectory.completed_at else None,
+        success=trajectory.success,
+        total_duration_ms=trajectory.total_duration_ms,
+        steps=[
+            TrajectoryStepResponse(
+                step_number=s.step_number,
+                step_name=s.step_name,
+                tool_name=s.tool_name,
+                status=s.status.value,
+                duration_ms=s.duration_ms,
+                input_summary=s.input_summary,
+                output_summary=s.output_summary,
+                error=s.error
+            )
+            for s in trajectory.steps
+        ],
+        statistics=trajectory.get_statistics()
+    )
+
+
+@app.post("/extract_structured", response_model=ExtractStructuredResponse)
+async def extract_structured(
+    request: ExtractStructuredRequest,
+    db: Session = Depends(database.get_db)
+):
+    """
+    Extract structured medical data from a SOAP note using an agent pipeline.
+    
+    Pipeline Steps:
+    1. Entity Extraction (LLM) - Extract raw entities from SOAP note
+    2. ICD-10 Enrichment (NIH API) - Look up diagnosis codes
+    3. RxNorm Enrichment (NIH API) - Look up medication codes
+    4. Validation (Pydantic) - Validate and assemble final output
+    
+    Returns:
+    - Structured data with patient info, conditions (with ICD-10), medications (with RxNorm),
+      vital signs, lab results, procedures, and care plan activities
+    - Optional execution trajectory for debugging
+    - Entity counts for quick summary
+    
+    The output is FHIR-aligned for easy conversion in Part 5.
+    """
+    try:
+        # Get text from document_id or use provided text
+        if request.document_id:
+            document = db.query(models.Document).filter(
+                models.Document.id == request.document_id
+            ).first()
+            if not document:
+                raise HTTPException(status_code=404, detail="Document not found")
+            note_text = document.content
+        elif request.text:
+            note_text = request.text
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Either document_id or text must be provided"
+            )
+        
+        # Run extraction agent
+        agent = ExtractionAgent()
+        result = await agent.extract(note_text)
+        
+        # Build response
+        response = ExtractStructuredResponse(
+            success=result.success,
+            error=result.error
+        )
+        
+        if result.success and result.structured_note:
+            response.structured_data = _convert_structured_note(result.structured_note)
+            response.entity_counts = result.structured_note.entity_count()
+        
+        if request.include_trajectory and result.trajectory:
+            response.trajectory = _convert_trajectory(result.trajectory)
+        
+        return response
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Structured extraction failed: {str(e)}"
+        )

@@ -106,3 +106,160 @@ class AnswerQuestionResponse(BaseModel):
     sources: List[SourceCitation] = Field(..., description="Source citations")
     confidence: float = Field(..., ge=0.0, le=1.0, description="Overall confidence in answer")
     retrieved_count: int = Field(..., description="Number of chunks retrieved")
+
+
+# ============================================================================
+# Part 4: Structured Data Extraction Schemas
+# ============================================================================
+
+class ExtractStructuredRequest(BaseModel):
+    """Request for structured data extraction from SOAP notes"""
+    document_id: Optional[int] = Field(None, description="ID of document to extract from")
+    text: Optional[str] = Field(None, min_length=1, description="Raw SOAP note text")
+    include_trajectory: bool = Field(default=True, description="Include execution trajectory in response")
+    
+    @classmethod
+    def validate_input(cls, values):
+        if not values.get('document_id') and not values.get('text'):
+            raise ValueError("Either document_id or text must be provided")
+        return values
+
+
+class TrajectoryStepResponse(BaseModel):
+    """A single step in the execution trajectory"""
+    step_number: int
+    step_name: str
+    tool_name: str
+    status: str
+    duration_ms: Optional[float] = None
+    input_summary: Optional[str] = None
+    output_summary: Optional[str] = None
+    error: Optional[str] = None
+
+
+class TrajectoryResponse(BaseModel):
+    """Execution trajectory for debugging and audit"""
+    agent_name: str
+    started_at: str
+    completed_at: Optional[str] = None
+    success: bool
+    total_duration_ms: Optional[float] = None
+    steps: List[TrajectoryStepResponse]
+    statistics: Dict
+
+
+class CodeableConceptResponse(BaseModel):
+    """Coded medical concept (ICD-10, RxNorm, etc.)"""
+    code: Optional[str] = Field(None, description="Standard code (ICD-10, RxNorm)")
+    system: Optional[str] = Field(None, description="Code system URI")
+    display: str = Field(..., description="Human-readable display text")
+
+
+class PatientResponse(BaseModel):
+    """Patient demographics"""
+    identifier: Optional[str] = None
+    name: Optional[str] = None
+    birth_date: Optional[str] = None
+    gender: Optional[str] = None
+
+
+class ConditionResponse(BaseModel):
+    """Medical condition/diagnosis with ICD-10 code"""
+    code: CodeableConceptResponse
+    clinical_status: str
+    verification_status: str
+    onset_date: Optional[str] = None
+    note: Optional[str] = None
+
+
+class DosageResponse(BaseModel):
+    """Medication dosage information"""
+    text: Optional[str] = None
+    dose_value: Optional[float] = None
+    dose_unit: Optional[str] = None
+    route: Optional[str] = None
+    frequency: Optional[str] = None
+
+
+class MedicationResponse(BaseModel):
+    """Medication with RxNorm code"""
+    code: CodeableConceptResponse
+    status: str
+    dosage: Optional[DosageResponse] = None
+    dispense_quantity: Optional[int] = None
+    refills: Optional[int] = None
+    as_needed: bool = False
+    reason: Optional[str] = None
+
+
+class VitalSignResponse(BaseModel):
+    """Vital sign measurement"""
+    code: CodeableConceptResponse
+    value: float
+    unit: str
+    value_string: Optional[str] = None
+    interpretation: Optional[str] = None
+
+
+class LabResultResponse(BaseModel):
+    """Laboratory test result"""
+    code: CodeableConceptResponse
+    value: Optional[float] = None
+    value_string: Optional[str] = None
+    unit: Optional[str] = None
+    reference_range: Optional[str] = None
+    interpretation: Optional[str] = None
+
+
+class ProcedureResponse(BaseModel):
+    """Medical procedure"""
+    code: CodeableConceptResponse
+    status: str
+    body_site: Optional[str] = None
+    note: Optional[str] = None
+
+
+class CarePlanResponse(BaseModel):
+    """Care plan activity"""
+    description: str
+    status: str
+    category: Optional[str] = None
+    scheduled_string: Optional[str] = None
+    note: Optional[str] = None
+
+
+class EncounterResponse(BaseModel):
+    """Clinical encounter"""
+    date: Optional[str] = None
+    type: Optional[str] = None
+    reason: Optional[str] = None
+
+
+class ProviderResponse(BaseModel):
+    """Healthcare provider"""
+    name: Optional[str] = None
+    specialty: Optional[str] = None
+    credentials: Optional[str] = None
+
+
+class StructuredNoteResponse(BaseModel):
+    """Complete structured extraction from SOAP note"""
+    patient: Optional[PatientResponse] = None
+    encounter: Optional[EncounterResponse] = None
+    provider: Optional[ProviderResponse] = None
+    conditions: List[ConditionResponse] = Field(default_factory=list)
+    medications: List[MedicationResponse] = Field(default_factory=list)
+    vital_signs: List[VitalSignResponse] = Field(default_factory=list)
+    lab_results: List[LabResultResponse] = Field(default_factory=list)
+    procedures: List[ProcedureResponse] = Field(default_factory=list)
+    care_plan: List[CarePlanResponse] = Field(default_factory=list)
+    extraction_timestamp: Optional[str] = None
+
+
+class ExtractStructuredResponse(BaseModel):
+    """Response with structured data and optional trajectory"""
+    success: bool = Field(..., description="Whether extraction succeeded")
+    structured_data: Optional[StructuredNoteResponse] = Field(None, description="Extracted structured data")
+    entity_counts: Optional[Dict[str, int]] = Field(None, description="Count of each entity type")
+    trajectory: Optional[TrajectoryResponse] = Field(None, description="Execution trajectory for debugging")
+    error: Optional[str] = Field(None, description="Error message if extraction failed")
