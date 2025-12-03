@@ -85,7 +85,7 @@ The RAG pipeline uses 4 medical guidelines stored in `data/medical_guidelines/`:
 
 ### Chunking Strategy
 
-Documents are chunked using  boundaries:
+Documents are chunked using  boundaries (placeholder for LLM based intelligent boundary selection + dynamic metadata extraction):
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
