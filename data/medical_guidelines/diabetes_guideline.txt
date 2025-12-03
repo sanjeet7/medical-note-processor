@@ -1,0 +1,332 @@
+CLINICAL PRACTICE GUIDELINE: TYPE 2 DIABETES MELLITUS MANAGEMENT
+
+Version 3.2 | Updated: December 2024
+
+====================
+1. INTRODUCTION AND EPIDEMIOLOGY
+====================
+
+Type 2 diabetes mellitus (T2DM) affects over 537 million adults worldwide and is a leading cause of cardiovascular disease, blindness, kidney failure, and lower limb amputation. This guideline provides evidence-based recommendations for screening, diagnosis, and comprehensive management of T2DM in primary care, with emphasis on individualized glycemic targets and cardiovascular risk reduction.
+
+====================
+2. SCREENING AND DIAGNOSIS
+====================
+
+Screening Recommendations (ADA 2024):
+- Screen all adults age ≥ 35 years regardless of risk factors
+- Screen earlier and more frequently if risk factors present:
+  * BMI ≥ 25 kg/m² (≥ 23 kg/m² in Asian Americans)
+  * First-degree relative with diabetes
+  * High-risk race/ethnicity (African American, Latino, Native American, Asian American, Pacific Islander)
+  * History of gestational diabetes or polycystic ovary syndrome
+  * Physical inactivity
+  * Hypertension (≥ 140/90 mm Hg or on therapy)
+  * HDL < 35 mg/dL or triglycerides > 250 mg/dL
+  * Prediabetes on prior testing
+
+Diagnostic Criteria (any of the following):
+1. Hemoglobin A1c ≥ 6.5% (confirmed on repeat testing if asymptomatic)
+2. Fasting plasma glucose ≥ 126 mg/dL (8-hour fast)
+3. 2-hour plasma glucose ≥ 200 mg/dL during 75g oral glucose tolerance test (OGTT)
+4. Random plasma glucose ≥ 200 mg/dL with classic symptoms of hyperglycemia
+
+Prediabetes Criteria:
+- HbA1c 5.7-6.4%
+- Fasting glucose 100-125 mg/dL (impaired fasting glucose)
+- 2-hour OGTT glucose 140-199 mg/dL (impaired glucose tolerance)
+- Prediabetes patients require lifestyle intervention and annual diabetes screening
+
+====================
+3. INITIAL COMPREHENSIVE EVALUATION
+====================
+
+Medical History:
+- Duration of hyperglycemia symptoms (polyuria, polydipsia, polyphagia, weight loss)
+- Previous HbA1c results and glucose monitoring data
+- Eating patterns, nutritional status, weight history
+- Physical activity level
+- History of diabetes-related complications
+- Family history of diabetes and cardiovascular disease
+- Current medications (including over-the-counter)
+- Tobacco, alcohol, substance use
+- Psychosocial assessment (depression screening)
+
+Physical Examination:
+- Height, weight, BMI calculation
+- Blood pressure measurement
+- Comprehensive foot examination (monofilament testing, pulses, visual inspection)
+- Skin examination (acanthosis nigricans, lipodystrophy)
+- Fundoscopic examination or retinal photography referral
+
+Laboratory Assessment at Diagnosis:
+- HbA1c (if not used for diagnosis)
+- Fasting lipid profile (total cholesterol, LDL, HDL, triglycerides)
+- Liver function tests (AST, ALT)
+- Serum creatinine with eGFR calculation
+- Urine albumin-to-creatinine ratio (UACR)
+- TSH in type 1 diabetes or if symptoms suggest thyroid disorder
+- Vitamin B12 if on metformin long-term
+
+====================
+4. GLYCEMIC TARGETS
+====================
+
+General Recommendations:
+- Glycemic targets should be individualized based on:
+  * Duration of diabetes
+  * Age and life expectancy
+  * Comorbid conditions
+  * Established vascular complications
+  * Hypoglycemia risk
+  * Patient preferences and resources
+
+Target HbA1c Levels:
+- Most non-pregnant adults: < 7.0% (53 mmol/mol)
+- More stringent (< 6.5%): Selected patients with short disease duration, long life expectancy, no significant CVD, if achieved without significant hypoglycemia
+- Less stringent (< 8.0%): History of severe hypoglycemia, limited life expectancy, advanced complications, extensive comorbidities, long-standing diabetes with difficulty achieving lower targets
+
+Self-Monitoring Blood Glucose (SMBG) Targets:
+- Preprandial glucose: 80-130 mg/dL
+- Postprandial glucose (1-2 hours after meals): < 180 mg/dL
+- Bedtime glucose: 100-140 mg/dL
+
+Time in Range (TIR) for CGM Users:
+- TIR (70-180 mg/dL): > 70% of time
+- Time below range (< 70 mg/dL): < 4% of time
+- Time above range (> 180 mg/dL): < 25% of time
+
+====================
+5. LIFESTYLE INTERVENTIONS
+====================
+
+Medical Nutrition Therapy:
+- Individualized meal planning with emphasis on nutrient-dense foods
+- Carbohydrate quality and quantity:
+  * Choose whole grains, fruits, vegetables, legumes over refined carbohydrates
+  * Consider carbohydrate counting for insulin users
+  * Low-carbohydrate eating patterns may benefit some patients
+- Protein intake: 15-20% of calories (higher if kidney disease absent)
+- Fat intake: Emphasize unsaturated fats, limit saturated fat to < 7% calories
+- Mediterranean or DASH eating patterns recommended
+- Limit sugar-sweetened beverages
+- Portion control strategies
+
+Weight Management:
+- Weight loss of 5-10% improves glycemic control, blood pressure, lipids
+- For overweight/obese patients: target 500-750 kcal/day deficit
+- Intensive behavioral interventions most effective
+- Consider anti-obesity medications if BMI ≥ 27 with comorbidities
+- Bariatric surgery consideration if BMI ≥ 35 (≥ 32.5 in Asian Americans)
+
+Physical Activity:
+- Aerobic exercise: ≥ 150 minutes/week of moderate intensity (50-70% max heart rate)
+- Spread over at least 3 days with no more than 2 consecutive days without activity
+- Resistance training: 2-3 sessions per week on non-consecutive days
+- Avoid prolonged sitting; break up sitting time every 30 minutes
+- Flexibility and balance training for older adults
+
+Diabetes Self-Management Education and Support (DSMES):
+- All patients should receive DSMES at diagnosis and ongoing
+- Key topics: medication adherence, hypoglycemia recognition, sick day management, foot care
+- Utilize certified diabetes educators when available
+
+====================
+6. PHARMACOTHERAPY - MEDICATION SELECTION
+====================
+
+First-Line Therapy - Metformin:
+- Initiate metformin at diagnosis unless contraindications present
+- Dosing: Start 500 mg once or twice daily with meals; titrate to 2000-2550 mg/day divided doses
+- Mechanism: Reduces hepatic glucose production, improves insulin sensitivity
+- Benefits: Weight neutral or modest weight loss, low hypoglycemia risk, cardiovascular neutral, low cost
+- Side effects: GI symptoms (diarrhea, nausea) - use extended-release formulation if needed
+- Contraindications: eGFR < 30 mL/min, severe liver disease, acute metabolic acidosis
+- Monitor vitamin B12 annually with long-term use
+
+Second-Line Therapy Selection - Individualized Approach:
+
+FOR PATIENTS WITH ESTABLISHED ATHEROSCLEROTIC CARDIOVASCULAR DISEASE (ASCVD):
+- Preferred: GLP-1 receptor agonist with proven CV benefit OR SGLT2 inhibitor with proven CV benefit
+- Independent of HbA1c, metformin use, or baseline HbA1c
+
+FOR PATIENTS WITH HEART FAILURE OR CHRONIC KIDNEY DISEASE:
+- Preferred: SGLT2 inhibitor with evidence of reducing HF/CKD progression
+- Consider GLP-1 RA if SGLT2i contraindicated or not tolerated
+
+FOR PATIENTS WITH OBESITY (BMI ≥ 27) AND NO ASCVD/HF/CKD:
+- Preferred: GLP-1 receptor agonist (promotes weight loss)
+- Alternative: SGLT2 inhibitor
+
+FOR PATIENTS WITHOUT INDICATORS FOR SPECIFIC DRUG CLASS:
+- Consider: Cost, side effect profile, patient preference
+- Options: DPP-4 inhibitor, SGLT2 inhibitor, GLP-1 RA, sulfonylurea, TZD
+
+Medication Classes - Detailed Overview:
+
+1. GLP-1 Receptor Agonists (Incretin Mimetics)
+   - Examples: Semaglutide (Ozempic) 0.5-2 mg SC weekly; Dulaglutide (Trulicity) 0.75-4.5 mg SC weekly; Liraglutide (Victoza) 0.6-1.8 mg SC daily
+   - Mechanism: Enhances glucose-dependent insulin secretion, suppresses glucagon, delays gastric emptying
+   - HbA1c reduction: 0.8-1.8%
+   - Weight effect: -2 to -6 kg (dose-dependent)
+   - CV benefits: Reduced MACE in high-risk patients (semaglutide, liraglutide, dulaglutide)
+   - Side effects: Nausea (usually transient), diarrhea, vomiting
+   - Contraindications: Personal/family history of medullary thyroid cancer or MEN 2
+   - Cautions: Pancreatitis risk (rare), slow dose titration to minimize GI effects
+
+2. SGLT2 Inhibitors (Sodium-Glucose Cotransporter-2 Inhibitors)
+   - Examples: Empagliflozin (Jardiance) 10-25 mg daily; Dapagliflozin (Farxiga) 5-10 mg daily; Canagliflozin (Invokana) 100-300 mg daily
+   - Mechanism: Blocks renal glucose reabsorption, increases urinary glucose excretion
+   - HbA1c reduction: 0.5-1.0%
+   - Weight effect: -2 to -3 kg
+   - CV/renal benefits: Reduced heart failure hospitalization, slowed CKD progression, reduced CV death
+   - Side effects: Genital mycotic infections (10-15%), urinary tract infections, polyuria
+   - Rare but serious: Diabetic ketoacidosis (usually euglycemic), volume depletion, fournier gangrene
+   - Cautions: eGFR < 20-30 (varies by agent), initiation may transiently decrease eGFR
+
+3. DPP-4 Inhibitors (Dipeptidyl Peptidase-4 Inhibitors)
+   - Examples: Sitagliptin (Januvia) 100 mg daily; Linagliptin (Tradjenta) 5 mg daily; Saxagliptin (Onglyza) 5 mg daily
+   - Mechanism: Prolongs incretin activity, enhances insulin secretion, suppresses glucagon
+   - HbA1c reduction: 0.5-0.8%
+   - Weight effect: Neutral
+   - Side effects: Generally well-tolerated, nasopharyngitis
+   - Cautions: Saxagliptin associated with increased heart failure risk
+
+4. Sulfonylureas
+   - Examples: Glipizide 5-20 mg daily/divided; Glyburide 1.25-20 mg daily/divided; Glimepiride 1-8 mg daily
+   - Mechanism: Stimulates pancreatic insulin secretion
+   - HbA1c reduction: 1.0-1.5%
+   - Weight effect: +2 to +3 kg
+   - Side effects: HYPOGLYCEMIA (major concern), weight gain
+   - Low cost but falling out of favor due to hypoglycemia risk
+   - Cautions: Elderly, renal impairment (avoid glyburide)
+
+5. Thiazolidinediones (TZDs)
+   - Example: Pioglitazone 15-45 mg daily
+   - Mechanism: Improves insulin sensitivity in muscle and adipose tissue
+   - HbA1c reduction: 0.8-1.4%
+   - Weight effect: +2 to +4 kg
+   - Side effects: Edema, weight gain, fracture risk (especially women)
+   - Contraindications: Heart failure (black box warning), bladder cancer
+   - Benefits: Durable glycemic effect, may reduce fatty liver
+
+6. Basal Insulin
+   - Examples: Glargine U-100/U-300, Detemir, Degludec U-100/U-200
+   - Initiate when: HbA1c > 10%, glucose > 300 mg/dL, or symptomatic hyperglycemia despite oral agents
+   - Starting dose: 10 units daily or 0.1-0.2 units/kg
+   - Titrate: Increase 2-4 units every 3 days until fasting glucose 80-130 mg/dL
+   - HbA1c reduction: 1.5-2.5% (dose-dependent)
+   - Side effects: Hypoglycemia, weight gain (+2-4 kg)
+
+====================
+7. TREATMENT INTENSIFICATION
+====================
+
+Triple Therapy:
+- If HbA1c remains above target on dual therapy, add third agent from different class
+- Preferred combinations often include metformin + GLP-1 RA + SGLT2i (if appropriate)
+
+Injectable Therapy:
+- Consider GLP-1 RA before basal insulin (less hypoglycemia, weight loss benefit)
+- Basal insulin indicated if: Severe hyperglycemia (A1c > 10%), catabolic symptoms, concern for type 1 diabetes
+
+Insulin Intensification:
+- If basal insulin at adequate dose (0.5 units/kg) but HbA1c still elevated:
+  * Add prandial insulin (1-2 injections) before largest meals
+  * Consider GLP-1 RA + basal insulin combination
+  * Progress to basal-bolus regimen if needed
+
+====================
+8. CARDIOVASCULAR RISK MANAGEMENT
+====================
+
+Blood Pressure Management:
+- Target: < 130/80 mm Hg for most patients
+- First-line agents: ACE inhibitor or ARB (renoprotective in diabetes)
+- Additional agents as needed to achieve goal
+
+Lipid Management:
+- Statin therapy for most adults with diabetes age 40-75
+- High-intensity statin if ASCVD present or 10-year ASCVD risk ≥ 20%
+- Moderate-intensity statin for moderate risk
+- LDL goal: < 70 mg/dL (< 100 mg/dL for moderate risk)
+- Consider ezetimibe or PCSK9 inhibitor if not at goal on maximally tolerated statin
+
+Antiplatelet Therapy:
+- Aspirin 75-162 mg daily for patients with diabetes and ASCVD
+- Consider for primary prevention if age ≥ 50 and additional CV risk factor, without increased bleeding risk
+
+====================
+9. COMPLICATION SCREENING AND PREVENTION
+====================
+
+Diabetic Retinopathy:
+- Initial dilated eye exam: at diagnosis
+- Follow-up: Annually if no retinopathy; more frequently if abnormalities present
+- Optimal glycemic and blood pressure control reduces risk
+
+Diabetic Kidney Disease:
+- Annual screening: eGFR and urine albumin-to-creatinine ratio (UACR)
+- If albuminuria present: ACE inhibitor or ARB
+- SGLT2 inhibitor for eGFR 20-60 with albuminuria (proven to slow progression)
+- Nephrology referral if eGFR < 30 or rapidly declining
+
+Diabetic Neuropathy:
+- Screen at diagnosis and annually with monofilament test and vibration sensation
+- Foot inspection at every visit
+- Gabapentin, pregabalin, or duloxetine for painful neuropathy
+- Emphasize foot care education
+
+Cardiovascular Disease:
+- ECG at baseline if CV risk factors present
+- Consider stress testing in high-risk patients before starting exercise program
+- Aggressive CV risk factor modification
+
+====================
+10. MONITORING AND FOLLOW-UP
+====================
+
+HbA1c Testing:
+- Every 3 months if not at goal or therapy changed
+- Every 6 months if stable and at goal
+
+Self-Monitoring Blood Glucose:
+- Frequency individualized based on therapy:
+  * Insulin users: Before meals and bedtime, occasionally 2 hours postprandial
+  * Non-insulin users: Individualized; may not need daily testing
+- Continuous glucose monitoring (CGM) increasingly utilized, especially for insulin users
+
+Office Visits:
+- Newly diagnosed or not at goal: Every 3 months
+- Stable and at goal: Every 6 months minimum
+- Each visit: Review SMBG/CGM data, medication adherence, hypoglycemia episodes, lifestyle modifications
+- Comprehensive foot exam at least annually
+
+Patient Education:
+- Hypoglycemia recognition and treatment (15-15 rule: 15g fast-acting carbs, recheck in 15 min)
+- Sick day management (maintain hydration, monitor glucose frequently, when to call provider)
+- When to seek emergency care (glucose > 300 with ketones, severe hypoglycemia)
+
+====================
+11. SPECIAL CONSIDERATIONS
+====================
+
+Older Adults:
+- Higher risk of hypoglycemia, polypharmacy, comorbidities
+- Individualize targets: HbA1c 7.5-8.5% may be appropriate for complex/frail elderly
+- Avoid sulfonylureas if possible
+- Simplify regimens, assess functional and cognitive status
+
+Hospitalized Patients:
+- Target glucose: 140-180 mg/dL for most critically ill and non-critically ill patients
+- Insulin preferred for inpatient glycemic management
+- Transition plan critical at discharge
+
+====================
+12. REFERENCES
+====================
+
+1. American Diabetes Association. Standards of Medical Care in Diabetes—2024. Diabetes Care. 2024;47(Suppl 1):S1-S321.
+
+2. Davies MJ, et al. Management of Hyperglycemia in Type 2 Diabetes, 2022. A Consensus Report by the ADA and EASD. Diabetes Care. 2022;45(11):2753-2786.
+
+3. UK Prospective Diabetes Study (UKPDS) Group. Intensive blood-glucose control with sulphonylureas or insulin compared with conventional treatment and risk of complications in patients with type 2 diabetes (UKPDS 33). Lancet. 1998;352(9131):837-853.

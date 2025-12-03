@@ -1,0 +1,403 @@
+CLINICAL PRACTICE GUIDELINE: POST-SURGICAL CARE AND RECOVERY MANAGEMENT
+
+Version 1.8 | Updated: December 2024
+
+====================
+1. INTRODUCTION
+====================
+
+Post-operative care is a critical phase in the surgical continuum, significantly influencing patient outcomes, recovery time, and complication rates. This guideline provides evidence-based recommendations for managing patients in the post-surgical period across various surgical procedures, with emphasis on pain management, wound care, mobilization, prevention of complications, and patient education for optimal recovery.
+
+====================
+2. IMMEDIATE POST-OPERATIVE ASSESSMENT (PACU/Recovery Room)
+====================
+
+Initial Monitoring (First 2-4 Hours):
+- Vital signs every 15 minutes initially, then per protocol
+- Airway patency and respiratory status
+- Level of consciousness and neurological status
+- Surgical site assessment for bleeding
+- Pain level assessment (0-10 scale)
+- Nausea/vomiting assessment
+- Intake and output monitoring
+
+Monitoring Frequency:
+- Vital signs should be monitored every 15 minutes for the first hour (or until stable)
+- Every 30 minutes for the next 2 hours
+- Every 4 hours thereafter on the ward (or per protocol)
+
+Discharge Criteria from PACU:
+- Stable vital signs for at least 30 minutes
+- Alert and oriented (or returned to baseline mental status)
+- Adequate pain control
+- Minimal nausea/vomiting
+- Controlled surgical site bleeding
+- Ability to move all extremities (if applicable)
+- Adequate oxygen saturation on room air (unless baseline oxygen requirement)
+
+====================
+3. PAIN MANAGEMENT - MULTIMODAL APPROACH
+====================
+
+Principles of Post-Operative Pain Management:
+- Multimodal analgesia: Use multiple medication classes with different mechanisms to minimize opioid requirements
+- Pre-emptive analgesia: Address pain before it becomes severe
+- Individualized approach: Consider procedure type, patient factors (age, renal function, history of substance use)
+- Regular assessment: Pain scores documented every 4 hours minimum
+- Patient education: Set realistic expectations, involve patients in pain management decisions
+
+Pain Assessment Tools:
+- Numeric Rating Scale (0-10): Most common for adults
+- Wong-Baker FACES scale: Useful for children or communication barriers
+- FLACC scale (Face, Legs, Activity, Cry, Consolability): Non-verbal patients
+- Critical Action Pain Score (CAPS): Assess pain with movement/deep breathing
+
+Multimodal Analgesic Regimen:
+
+Non-Opioid Foundation:
+
+1. Acetaminophen (Tylenol)
+   - Dosing: 650-1000 mg PO every 6 hours (max 4 grams/24 hours)
+   - IV formulation: 1 gram every 6 hours (useful immediate post-op if NPO)
+   - Mechanism: Central analgesic and antipyretic effect
+   - Benefits: Opioid-sparing, well-tolerated
+   - Cautions: Hepatic impairment, chronic alcohol use (reduce dose to max 2 g/day)
+
+2. NSAIDs (Non-Steroidal Anti-Inflammatory Drugs)
+   - Examples: Ibuprofen 400-600 mg PO every 6-8 hours; Ketorolac 15-30 mg IV/IM every 6 hours (max 5 days)
+   - Mechanism: Inhibit prostaglandin synthesis, reduce inflammation
+   - Benefits: Effective for musculoskeletal and inflammatory pain
+   - Contraindications: Active PUD, significant renal impairment (eGFR < 30), bleeding disorders, recent cardiac surgery
+   - Cautions: GI bleeding risk (consider PPI if high risk), perioperative bleeding, cardiovascular events, renal dysfunction
+   - Monitor: Renal function, signs of bleeding
+
+3. Gabapentinoids (Gabapentin, Pregabalin)
+   - Dosing: Gabapentin 300-600 mg PO every 8 hours; Pregabalin 75-150 mg PO twice daily
+   - Mechanism: Modulate calcium channels, reduce neuropathic pain
+   - Benefits: Opioid-sparing effect, reduce neuropathic pain component
+   - Side effects: Sedation, dizziness, peripheral edema
+   - Cautions: Renal dosing adjustment required
+   - Evidence: Most effective when started pre-operatively and continued post-op
+
+Opioid Analgesics (Rescue and Breakthrough Pain):
+
+Short-Acting Opioids:
+- Morphine: 2-10 mg IV/IM every 3-4 hours OR 15-30 mg PO every 4 hours
+- Hydromorphone (Dilaudid): 0.5-2 mg IV/IM every 3-4 hours OR 2-4 mg PO every 4-6 hours (5-7x more potent than morphine)
+- Oxycodone: 5-10 mg PO every 4-6 hours
+- Hydrocodone: 5-10 mg PO every 4-6 hours (combination products with acetaminophen)
+
+Patient-Controlled Analgesia (PCA):
+- Indications: Major surgery, severe pain, patients able to self-administer
+- Typical settings: Morphine 1 mg demand dose, 6-10 minute lockout, no basal rate (or low basal if needed)
+- Benefits: Better pain control, patient autonomy, reduced nursing workload
+- Monitoring: Sedation level (primary safety concern), respiratory rate, pain scores
+- Discontinue when oral intake resumed and pain controlled with oral medications
+
+Opioid Side Effect Management:
+- Constipation (most common): Prophylactic bowel regimen (stool softener + stimulant laxative) for all patients on opioids
+- Nausea/vomiting: Ondansetron 4-8 mg every 6 hours, metoclopramide 10 mg, promethazine 12.5-25 mg
+- Pruritus: Diphenhydramine 25-50 mg, or reduce opioid dose, or switch opioids
+- Respiratory depression: Reduce or hold dose, naloxone 0.04-0.4 mg IV if severe (titrate to avoid complete reversal and severe pain)
+
+Regional Anesthesia and Nerve Blocks:
+- Benefits: Superior pain control, reduced opioid use, fewer side effects
+- Examples: Epidural catheters (thoracic/abdominal surgery), peripheral nerve blocks (orthopedic surgery), TAP blocks (abdominal surgery)
+- Duration: Single-shot blocks last 8-24 hours; continuous catheters can last several days
+- Monitoring: Assess motor/sensory function, catheter site if applicable
+
+Procedure-Specific Considerations:
+- Orthopedic surgery: Emphasize NSAIDs (if safe), regional blocks, ice therapy
+- Abdominal surgery: Avoid excessive opioids (ileus risk), multimodal approach critical
+- Thoracic surgery: Epidural or paravertebral blocks effective
+- Minimally invasive surgery: Often lower pain, but still require adequate analgesia
+
+Transitioning to Outpatient Pain Management:
+- Discharge prescription: Short course (3-7 days) of opioid + non-opioid combination
+- Example: Oxycodone 5 mg + acetaminophen 325 mg, dispense 15-30 tablets, no refills
+- Educate on weaning: Decrease opioid first, maintain non-opioid analgesics
+- Set expectations: Some discomfort normal during recovery, avoid complete pain elimination goal
+- Safe storage and disposal: Discuss risks, provide disposal resources
+
+====================
+4. WOUND CARE AND INFECTION PREVENTION
+====================
+
+Surgical Site Assessment:
+- Inspect daily: Edges approximated, no dehiscence, no purulent drainage
+- Signs of infection (usually appears POD 3-7): Erythema, warmth, swelling, purulent drainage, fever
+- Document: Appearance, size, drainage type/amount
+
+Wound Classification:
+- Clean (Class I): Uninfected, no inflammation, no GI/GU/respiratory tract entry
+- Clean-contaminated (Class II): GI/GU/respiratory tract entered under controlled conditions
+- Contaminated (Class III): Open/traumatic wounds, major breaks in sterile technique, GI spillage
+- Dirty (Class IV): Purulent infection, perforated viscus, traumatic wound with devitalized tissue
+
+Dressing Management:
+
+Primary Dressings (Clean, Dry Wounds):
+- Initial dressing: Leave in place for 24-48 hours unless concerns for bleeding/infection
+- After 48 hours: May shower with incision exposed (pat dry gently)
+- No soaking: Avoid baths, swimming pools, hot tubs until fully healed (typically 2-3 weeks)
+- If drainage persists: Change dressings daily or twice daily, keep clean and dry
+- Surgical glue (Dermabond): No dressing needed, will peel off in 5-10 days
+- Steri-strips: Leave in place, will fall off naturally in 7-14 days
+
+Wound Drainage Devices:
+- Jackson-Pratt (JP) drains, Hemovac drains: Empty every 8-12 hours or when 2/3 full
+- Document output: Amount, color, character
+- Removal criteria: < 30 mL/24 hours for 24-48 hours (varies by procedure)
+- Patient education: Emptying technique, securing drain, signs of problems
+
+Suture/Staple Removal:
+- Timing varies by location and tension:
+  * Face: 3-5 days
+  * Scalp: 7-10 days
+  * Trunk/upper extremities: 7-10 days
+  * Lower extremities/joints: 10-14 days
+- Technique: Every other suture/staple first, assess wound integrity, remove remainder if appropriate
+
+Surgical Site Infection (SSI) Prevention:
+- Pre-operative: Appropriate antibiotic prophylaxis (within 60 minutes of incision)
+- Intra-operative: Maintain normothermia, glucose control, appropriate skin preparation
+- Post-operative: Hand hygiene, aseptic dressing changes, glycemic control
+- Risk factors: Diabetes, obesity, immunosuppression, malnutrition, smoking, prolonged surgery
+
+SSI Recognition and Management:
+- Superficial incisional SSI: Erythema, warmth, tenderness, purulent drainage limited to skin/subcutaneous tissue
+  * Treatment: Open wound if needed, local wound care, oral antibiotics if cellulitis present
+- Deep incisional SSI: Involves fascia and muscle layers
+  * Treatment: Requires surgical exploration, IV antibiotics, possible wound VAC
+- Organ/space SSI: Infection in anatomic spaces opened/manipulated during surgery
+  * Treatment: Drainage (percutaneous or surgical), IV antibiotics, prolonged therapy
+
+Empiric Antibiotic Selection for SSI:
+- Superficial SSI: Cephalexin 500 mg PO QID or cefazolin 1-2g IV every 8 hours
+- MRSA risk factors: Add TMP-SMX DS twice daily or doxycycline 100 mg twice daily
+- Deep SSI or organ/space: Broad-spectrum IV antibiotics (e.g., piperacillin-tazobactam, add vancomycin if MRSA risk)
+
+====================
+5. MOBILIZATION AND PHYSICAL THERAPY
+====================
+
+Enhanced Recovery After Surgery (ERAS) Principles:
+- Early mobilization: Ambulate within 24 hours of most surgeries
+- Benefits: Reduces DVT/PE risk, prevents pneumonia, improves bowel function, maintains muscle strength, improves mood
+- Progressive activity: Sit to edge of bed → stand → walk in room → walk in hallway
+
+Mobilization Timeline:
+
+Day of Surgery (POD 0):
+- Sit up in bed or chair for at least 30 minutes (if hemodynamically stable)
+- Perform ankle pumps, leg exercises in bed
+- Ambulate to chair if feasible (minimally invasive procedures)
+
+Post-Operative Day 1:
+- Sit in chair for meals
+- Ambulate in hallway 3-4 times (start with short distances, progress as tolerated)
+- Continue in-bed exercises
+
+Post-Operative Days 2-3:
+- Increase ambulation distance and frequency (goal: 6+ times daily by POD 3)
+- Begin stair training if patient will have stairs at home
+- Physical therapy consultation if complex needs or prolonged recovery expected
+
+Specific Mobilization Protocols:
+
+Orthopedic Surgery (Joint Replacement):
+- POD 0: Physical therapy evaluation, begin exercises
+- POD 1: Ambulate with assistive device, begin weight-bearing as allowed (full, partial, or non-weight-bearing per surgeon)
+- POD 2-3: Progress distance, stair training, discharge planning
+
+Abdominal Surgery:
+- Early mobilization critical to prevent ileus
+- Ambulate even with drains, NG tubes, or ostomies (secure appropriately)
+- Gradual return to normal activities over 4-6 weeks
+
+Cardiac Surgery:
+- Sternal precautions: No pushing/pulling, no lifting > 10 lbs for 6-8 weeks
+- Gradual increase in activity
+- Cardiac rehabilitation referral
+
+Fall Prevention:
+- Assess fall risk: Age, medications (opioids, sedatives), orthostatic hypotension, deconditioning
+- Interventions: Non-skid socks, bed alarm, frequent toileting, glasses/hearing aids, clear pathways
+- Assistance: Use gait belt, walker, or cane as appropriate
+
+====================
+6. RESPIRATORY CARE
+====================
+
+Pulmonary Complications (Common Post-Op):
+- Atelectasis (most common): Collapse of alveoli, typically in dependent lung regions
+- Pneumonia
+- Pleural effusion
+- Pulmonary embolism (see below)
+
+Prevention Strategies:
+
+Incentive Spirometry:
+- Goal: Prevent atelectasis by promoting deep breathing and lung expansion
+- Technique: Inhale slowly and deeply, hold for 3-5 seconds, rest, repeat
+- Frequency: 10 times every hour while awake
+- Patient education: More important than achieving specific volume; focus on effort
+
+Deep Breathing and Coughing Exercises:
+- Deep breathing: Slow, deep inhalations through nose, hold, exhale slowly
+- Coughing technique: Splint incision with pillow, take deep breath, cough forcefully
+- "Huff" coughing for less painful mobilization of secretions
+
+Early Mobilization (see above):
+- Single most effective intervention to prevent pulmonary complications
+
+Smoking Cessation:
+- Ideally 8 weeks before surgery, but any period helps
+- Continue abstinence post-operatively
+
+Supplemental Oxygen:
+- Wean as tolerated to maintain SpO2 > 92-94%
+- Prolonged oxygen may reduce respiratory drive in COPD patients
+
+Recognition of Pneumonia:
+- Fever, productive cough, dyspnea, tachypnea, hypoxia
+- Chest X-ray: Infiltrate
+- Treatment: Antibiotics (hospital-acquired vs aspiration vs community-acquired pathogen coverage)
+
+====================
+7. PREVENTION OF VENOUS THROMBOEMBOLISM (VTE)
+====================
+
+Risk Assessment:
+- High risk procedures: Orthopedic (hip/knee replacement), cancer surgery, prolonged immobility
+- Patient risk factors: Previous VTE, cancer, obesity, age > 60, thrombophilia, estrogen use
+
+Prophylaxis Strategies:
+
+Mechanical Prophylaxis:
+- Early mobilization: Most important
+- Graduated compression stockings (GCS): Thigh-high preferred
+- Sequential compression devices (SCDs): Intermittent pneumatic compression while in bed
+- Continue until fully ambulatory
+
+Pharmacologic Prophylaxis (if not contraindicated):
+- Low molecular weight heparin (LMWH): Enoxaparin 40 mg SC daily (30 mg twice daily if high-risk orthopedic surgery)
+- Unfractionated heparin: 5000 units SC every 8-12 hours
+- Factor Xa inhibitors: Fondaparinux, rivaroxaban, apixaban (specific to orthopedic surgery)
+- Duration: Until fully ambulatory (inpatient); extended prophylaxis (4 weeks) for high-risk orthopedic surgery
+
+Contraindications to Pharmacologic Prophylaxis:
+- Active bleeding
+- High bleeding risk (neurosurgery, ocular surgery initially)
+- Platelet count < 50,000
+- Severe renal impairment (adjust LMWH dose or use UFH)
+
+DVT Recognition:
+- Unilateral leg swelling, pain, warmth, erythema, positive Homan's sign (unreliable)
+- Diagnosis: Duplex ultrasound
+- Treatment: Anticoagulation (LMWH, fondaparinux, or direct oral anticoagulant)
+
+Pulmonary Embolism Recognition:
+- Dyspnea, tachypnea, tachycardia, chest pain (pleuritic), hypoxia, hemoptysis
+- Diagnosis: CT pulmonary angiography (CTPA) or V/Q scan
+- Treatment: Anticoagulation, supportive care, thrombolytics or embolectomy if massive PE
+
+====================
+8. NUTRITIONAL SUPPORT AND BOWEL FUNCTION
+====================
+
+Post-Operative Diet Advancement:
+- NPO initially → clear liquids → full liquids → regular diet
+- Timing varies by procedure:
+  * Minimally invasive surgery: Often tolerate diet POD 0 or 1
+  * Major abdominal surgery: NPO until bowel function returns (flatus, bowel movement)
+- ERAS protocols: Early feeding (within 24 hours) safe for many procedures
+
+Return of Bowel Function:
+- Small bowel: Returns in 24 hours
+- Stomach: 24-48 hours
+- Colon: 3-5 days
+- Signs: Bowel sounds (early, not reliable), flatus (more reliable), bowel movement
+
+Post-Operative Ileus (POI):
+- Transient cessation of bowel motility, common after abdominal surgery
+- Prevention: Early mobilization, minimize opioids, gum chewing, alvimopan (for bowel resection)
+- Management: NPO, IV fluids, correct electrolytes (especially potassium, magnesium), reduce opioids, NG tube if severe
+- Differentiate from mechanical obstruction (requires imaging if prolonged)
+
+Nausea and Vomiting Management:
+- Common post-operative complaint
+- Prophylaxis in high-risk patients: Combination therapy (ondansetron + dexamethasone + scopolamine patch)
+- Treatment: Ondansetron 4-8 mg IV/PO, metoclopramide 10 mg, promethazine 12.5-25 mg, prochlorperazine 5-10 mg
+
+Nutritional Considerations:
+- Protein needs increased: 1.5-2.0 g/kg/day to promote wound healing
+- Caloric needs increased: 25-30 kcal/kg/day
+- Micronutrients: Vitamin C, zinc, vitamin A for wound healing
+- Malnutrition screening: Assess pre-op nutritional status, consult dietitian if high risk
+
+====================
+9. PATIENT EDUCATION AND DISCHARGE PLANNING
+====================
+
+Discharge Instructions (Provide Written + Verbal):
+
+Activity Restrictions:
+- Specific to procedure (e.g., no lifting > 10-15 lbs for 4-6 weeks)
+- Driving: Typically no driving while on opioids or for 1-2 weeks post-op
+- Return to work: Varies by procedure and occupation (desk job vs physical labor)
+- Sexual activity: Usually safe when comfortable, typically 2-4 weeks
+
+Wound Care:
+- Dressing changes if applicable
+- When to shower/bathe
+- Signs of infection to watch for
+
+Medications:
+- Pain management plan with weaning strategy
+- Resume home medications (especially cardiac, diabetes, anticoagulants per instructions)
+- New medications (e.g., antibiotics if prescribed)
+
+Diet:
+- Specific restrictions if applicable
+- High-protein, balanced diet for healing
+
+Warning Signs - When to Call:
+- Fever > 101°F (38.3°C)
+- Increasing wound redness, swelling, drainage
+- Uncontrolled pain despite medications
+- Chest pain, shortness of breath
+- Leg swelling, calf pain
+- Inability to urinate, persistent nausea/vomiting
+
+Follow-Up Appointments:
+- Surgeon follow-up typically 7-14 days post-op
+- Confirm appointment scheduled before discharge
+- Primary care follow-up for chronic disease management
+
+====================
+10. COMMON POST-OPERATIVE COMPLICATIONS
+====================
+
+Hemorrhage:
+- Early recognition: Tachycardia, hypotension, increased drain output, abdominal distension
+- Management: Fluid resuscitation, transfusion if needed, surgical re-exploration if ongoing
+
+Urinary Retention:
+- Common after anesthesia, opioids, pelvic surgery
+- Management: Bladder scan if suspected, straight catheterization, rarely indwelling catheter
+
+Acute Kidney Injury:
+- Risk factors: Pre-existing CKD, hypotension, nephrotoxic medications, contrast exposure
+- Prevention: Adequate hydration, avoid NSAIDs if high risk
+- Management: Correct hypovolemia, adjust medication doses, nephrology consult if severe
+
+====================
+11. REFERENCES
+====================
+
+1. Ljungqvist O, et al. Enhanced Recovery After Surgery: A Review. JAMA Surg. 2017;152(3):292-298.
+
+2. Anderson DJ, et al. Strategies to Prevent Surgical Site Infections in Acute Care Hospitals: 2014 Update. Infect Control Hosp Epidemiol. 2014;35(6):605-627.
+
+3. Gould MK, et al. Prevention of VTE in Nonorthopedic Surgical Patients: Antithrombotic Therapy and Prevention of Thrombosis, 9th ed. Chest. 2012;141(2 Suppl):e227S-e277S.

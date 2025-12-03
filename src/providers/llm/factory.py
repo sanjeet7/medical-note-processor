@@ -7,19 +7,25 @@ class LLMFactory:
     """Factory for creating LLM providers from configuration"""
     
     @staticmethod
-    def create() -> LLMProvider:
-        """Create LLM provider based on settings"""
+    def create(model: str = None) -> LLMProvider:
+        """
+        Create LLM provider based on settings.
+        
+        Args:
+            model: Optional model override. If None, uses settings.llm_model
+        """
         provider = settings.llm_provider.lower()
+        model_name = model or settings.llm_model
         
         if provider == "openai":
             return OpenAIProvider(
                 api_key=settings.llm_api_key,
-                model=settings.llm_model
+                model=model_name
             )
         elif provider == "anthropic":
             return AnthropicProvider(
                 api_key=settings.llm_api_key,
-                model=settings.llm_model
+                model=model_name
             )
         else:
             raise ValueError(f"Unsupported LLM provider: {provider}")

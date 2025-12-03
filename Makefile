@@ -1,4 +1,4 @@
-.PHONY: setup test run clean db-up db-down
+.PHONY: setup test run clean db-up db-down seed index-guidelines
 
 setup:
 	python3 -m venv venv
@@ -14,6 +14,9 @@ test-part1:
 test-part2:
 	. venv/bin/activate && pytest tests/test_part2.py tests/test_llm_connection.py -v
 
+test-part3:
+	. venv/bin/activate && pytest tests/test_part3.py -v
+
 test-llm-connection:
 	. venv/bin/activate && pytest tests/test_llm_connection.py -v
 
@@ -26,12 +29,18 @@ db-down:
 	docker-compose -f docker-compose.dev.yml down
 
 seed: db-up
-	. venv/bin/activate && python scripts/seed_database.py
+	@echo "Checking if database needs seeding..."
+	@. venv/bin/activate && python scripts/seed_database.py || echo "Database already seeded or seeding failed"
 
-run: seed
+index-guidelines:
+	@echo "Indexing medical guidelines into FAISS..."
+	@. venv/bin/activate && python scripts/index_guidelines.py
+
+run: seed index-guidelines
 	. venv/bin/activate && uvicorn src.main:app --reload
 
 clean:
 	rm -rf __pycache__
 	rm -rf .pytest_cache
+	rm -rf data/faiss_db
 	find . -name "*.pyc" -delete

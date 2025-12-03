@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 # Health check schema
 class HealthResponse(BaseModel):
@@ -71,3 +71,38 @@ class QueryResponse(BaseModel):
     cached: bool
     provider: str
     model: str
+
+class QueryNoteRequest(BaseModel):
+    document_id: int = Field(..., description="ID of document to query")
+    query: str = Field(..., min_length=1, max_length=1000, description="Question about the document")
+
+
+class QueryNoteResponse(BaseModel):
+    answer: str
+    document_id: int
+    document_title: str
+    cached: bool
+    provider: str
+    model: str
+
+
+# RAG Schemas (Part 3)
+class AnswerQuestionRequest(BaseModel):
+    """Request for answering questions using RAG over medical guidelines"""
+    question: str = Field(..., min_length=1, max_length=2000, description="Medical question")
+
+
+class SourceCitation(BaseModel):
+    """Citation to source document chunk"""
+    id: int = Field(..., description="Citation number")
+    document: str = Field(..., description="Source document name")
+    section: str = Field(..., description="Section title from document")
+    text: str = Field(..., description="Relevant excerpt from document")
+
+
+class AnswerQuestionResponse(BaseModel):
+    """Response with answer, citations, and confidence"""
+    answer: str = Field(..., description="Answer to question with inline citations")
+    sources: List[SourceCitation] = Field(..., description="Source citations")
+    confidence: float = Field(..., ge=0.0, le=1.0, description="Overall confidence in answer")
+    retrieved_count: int = Field(..., description="Number of chunks retrieved")

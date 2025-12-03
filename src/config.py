@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     debug: bool = False
     
     # LLM Configuration
-    llm_provider: str = "openai"  # 'openai' or 'ollama'
+    llm_provider: str = "openai"  # 'openai' or 'anthropic'
     llm_model: str = "gpt-5.1"
     llm_api_key: str = ""
     
@@ -23,7 +23,11 @@ class Settings(BaseSettings):
     chunk_size: int = 500
     chunk_overlap: int = 100
     retrieval_top_k: int = 10
-    rerank_top_k: int = 3
+    similarity_threshold: float = 0.3  # Minimum cosine similarity for vector search
+    faiss_db_path: str = "data/faiss_db"
+    
+    # Dual LLM Strategy
+    metadata_llm_model: str = "gpt-5.1-mini"  # Cheaper model for metadata extraction
     
     # Cache
     enable_llm_cache: bool = True

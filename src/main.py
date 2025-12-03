@@ -198,3 +198,53 @@ async def query_note(
             status_code=500,
             detail=f"LLM query failed: {str(e)}"
         )
+
+# ============================================================================
+# PART 3 ENDPOINT - RAG Pipeline
+# ============================================================================
+
+from .rag.service import RAGService
+from .schemas import AnswerQuestionRequest, AnswerQuestionResponse, SourceCitation
+
+@app.post("/answer_question", response_model=AnswerQuestionResponse)
+async def answer_question(request: AnswerQuestionRequest):
+    """
+    Answer medical questions using RAG over medical guidelines.
+    
+    Pipeline:
+    1. Query reformulation for better recall
+    2. Hybrid retrieval (vector search + LLM reranking)
+    3. Dynamic filtering by relevance threshold (>= 0.7)
+    4. Answer generation with inline citations
+    5. Confidence assessment
+    
+    Returns:
+    - Answer with inline citation markers [1], [2], etc.
+    - List of source citations with document, section, and relevance scores
+    - Overall confidence score (0.0-1.0)
+    - Number of chunks retrieved
+    """
+    try:
+        rag_service = RAGService()
+        rag_answer = await rag_service.answer_question(request.question)
+        
+        # Convert to response schema
+        return AnswerQuestionResponse(
+            answer=rag_answer.answer,
+            sources=[
+                SourceCitation(
+                    id=source.id,
+                    document=source.document,
+                    section=source.section,
+                    text=source.text
+                )
+                for source in rag_answer.sources
+            ],
+            confidence=rag_answer.confidence,
+            retrieved_count=rag_answer.retrieved_count
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"RAG question answering failed: {str(e)}"
+        )

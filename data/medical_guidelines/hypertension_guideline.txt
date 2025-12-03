@@ -1,0 +1,215 @@
+CLINICAL PRACTICE GUIDELINE: HYPERTENSION MANAGEMENT IN PRIMARY CARE
+
+Version 2.1 | Updated: December 2024
+
+====================
+1. INTRODUCTION
+====================
+
+Hypertension remains one of the most prevalent chronic conditions worldwide, affecting approximately 1.28 billion adults globally. It is a major modifiable risk factor for cardiovascular disease, stroke, chronic kidney disease, and mortality. This guideline provides evidence-based recommendations for the diagnosis, treatment, and management of hypertension in adult patients in primary care settings.
+
+====================
+2. DIAGNOSIS AND CLASSIFICATION
+====================
+
+Blood Pressure Measurement Standards:
+- Measurements should be taken after the patient has been seated quietly for at least 5 minutes
+- Use appropriate cuff size (bladder encircling at least 80% of arm)
+- Take at least two readings 1-2 minutes apart
+- Confirm diagnosis with out-of-office measurements (home BP monitoring or ambulatory BP monitoring)
+
+Classification of Blood Pressure in Adults (ACC/AHA 2017):
+- Normal: SBP < 120 mm Hg AND DBP < 80 mm Hg
+- Elevated: SBP 120-129 mm Hg AND DBP  < 80 mm Hg
+- Stage 1 Hypertension: SBP 130-139 mm Hg OR DBP 80-89 mm Hg
+- Stage 2 Hypertension: SBP ≥ 140 mm Hg OR DBP ≥ 90 mm Hg
+
+Diagnostic Confirmation:
+- Ambulatory blood pressure monitoring (ABPM) is the gold standard for confirming diagnosis
+- Home blood pressure monitoring (HBPM) is an acceptable alternative
+- At least 12-14 measurements over one week recommended for HBPM
+- Exclude white coat hypertension (elevated office BP, normal out-of-office BP)
+- Exclude masked hypertension (normal office BP, elevated out-of-office BP)
+
+====================
+3. INITIAL EVALUATION
+====================
+
+History and Physical Examination:
+- Duration of hypertension and previous BP readings
+- Symptoms of target organ damage (chest pain, dyspnea, neurological symptoms)
+- Cardiovascular risk factors: diabetes, smoking, dyslipidemia, family history
+- Secondary hypertension screening: young age, severe/resistant HTN, hypokalemia
+- Medication review: NSAIDs, decongestants, oral contraceptives, steroids
+
+Laboratory Testing:
+- Basic metabolic panel (sodium, potassium, creatinine, eGFR)
+- Fasting lipid panel
+- Fasting glucose or HbA1c
+- Urinalysis (proteinuria assessment)
+- ECG (left ventricular hypertrophy screening)
+
+Optional Testing Based on Clinical Suspicion:
+- TSH (thyroid disorders)
+- Renin/aldosterone ratio (primary aldosteronism)
+- Plasma metanephrines (pheochromocytoma)
+- Renal artery imaging (renovascular hypertension)
+
+====================
+4. LIFESTYLE MODIFICATIONS
+====================
+
+All patients with elevated blood pressure or hypertension should receive counseling on lifestyle modifications, which can reduce SBP by 4-11 mm Hg:
+
+Dietary Interventions:
+- DASH diet (Dietary Approaches to Stop Hypertension): emphasize fruits, vegetables, whole grains, lean proteins
+- Sodium restriction: limit to < 1500-2300 mg per day
+- Potassium supplementation: 3500-5000 mg daily (unless contraindicated)  
+- Limit alcohol: men ≤ 2 drinks/day, women ≤ 1 drink/day
+
+Physical Activity:
+- Aerobic exercise: 150 minutes/week of moderate intensity OR 75 minutes/week of vigorous intensity
+- Resistance training: 2-3 sessions per week
+- Combination approaches preferred for optimal BP reduction
+
+Weight Management:
+- Target BMI 18.5-24.9 kg/m²
+- Weight loss goal: 1 kg reduction can lower SBP by ~1 mm Hg
+- Emphasis on sustainable dietary and exercise habits
+
+Stress Reduction:
+- Mindfulness-based stress reduction
+- Adequate sleep (7-9 hours nightly)
+- Limit caffeine intake
+- Smoking cessation (critical for overall CV risk reduction)
+
+====================
+5. PHARMACOLOGICAL TREATMENT
+====================
+
+Indications for Medication Initiation:
+- Stage 2 hypertension (BP ≥ 140/90): initiate medication immediately alongside lifestyle modifications
+- Stage 1 hypertension (BP 130-139/80-89): consider medication if:
+  * 10-year ASCVD risk ≥ 10%
+  * Presence of diabetes mellitus
+  * Chronic kidney disease
+  * Age ≥ 65 years
+
+Blood Pressure Treatment Goals:
+- General population: < 130/80 mm Hg
+- Age ≥ 65 years: < 130/80 mm Hg (if tolerated)
+- Diabetes mellitus: < 130/80 mm Hg
+- Chronic kidney disease: < 130/80 mm Hg
+
+First-Line Antihypertensive Medications:
+
+1. Thiazide or Thiazide-Like Diuretics
+   - Examples: Chlorthalidone 12.5-25 mg daily, Hydrochlorothiazide 25-50 mg daily
+   - Mechanism: Reduces plasma volume and peripheral vascular resistance
+   - Cautions: Monitor electrolytes (hypokalemia, hyponatremia), uric acid elevation
+   - Contraindications: Gout, severe hyponatremia
+
+2. Angiotensin-Converting Enzyme (ACE) Inhibitors
+   - Examples: Lisinopril 10-40 mg daily, Enalapril 5-20 mg twice daily
+   - Mechanism: Blocks conversion of angiotensin I to angiotensin II
+   - Preferred in: Diabetes with proteinuria, heart failure, post-MI
+   - Cautions: Monitor creatinine and potassium; check within 1-2 weeks of initiation
+   - Contraindications: Pregnancy, bilateral renal artery stenosis, history of angioedema
+   - Side effects: Dry cough (5-10%), hyperkalemia
+
+3. Angiotensin II Receptor Blockers (ARBs)
+   - Examples: Losartan 50-100 mg daily, Valsartan 80-320 mg daily
+   - Mechanism: Blocks angiotensin II type 1 receptors
+   - Preferred in: Patients intolerant to ACE inhibitors (cough)
+   - Same indications and cautions as ACE inhibitors
+   - Contraindications: Pregnancy, bilateral renal artery stenosis
+
+4. Calcium Channel Blockers (CCBs)
+   - Dihydropyridines: Amlodipine 5-10 mg daily, Nifedipine XL 30-90 mg daily
+     * Side effects: Peripheral edema, headache
+   - Non-dihydropyridines: Diltiazem CD 180-360 mg daily, Verapamil SR 120-480 mg daily
+     * Cautions: Avoid in heart failure with reduced ejection fraction
+   - Preferred in: Elderly patients, Black patients, chronic kidney disease without proteinuria
+
+Treatment Algorithms:
+- Most patients require 2-3 medications for BP control
+- Initial monotherapy: Consider for Stage 1 HTN with low CV risk
+- Initial dual therapy: Recommended for Stage 2 HTN or average BP > 20/10 mm Hg above goal
+- Preferred combinations:
+  * ACE inhibitor or ARB + CCB
+  * ACE inhibitor or ARB + thiazide diuretic
+  * CCB + thiazide diuretic
+
+Second-Line and Resistant Hypertension:
+- Beta-blockers (atenolol, metoprolol, carvedilol): Consider for specific indications (CAD, HF, tachyarrhythmias)
+- Spironolactone 25-50 mg daily: Effective add-on for resistant HTN
+- Alpha-blockers (doxazosin): Reserved for specific situations
+- Direct vasodilators (hydralazine, minoxidil): Reserved for resistant cases
+- Resistant HTN definition: Uncontrolled BP despite 3 medications including a diuretic
+
+====================
+6. SPECIAL POPULATIONS
+====================
+
+Black Patients:
+- Higher prevalence and severity of hypertension
+- Initial therapy: Thiazide diuretic or CCB preferred over ACE inhibitor/ARB
+- Lower renin activity makes ACE inhibitors less effective as monotherapy
+- Combination therapy often required
+
+Pregnant Women:
+- Chronic HTN: Continue antihypertensive therapy (avoid ACE inhibitors, ARBs)
+- Safe options: Methyldopa, labetalol, long-acting nifedipine
+- Gestational HTN/Preeclampsia: Requires specialist consultation
+- Target BP: < 140/90 during pregnancy
+
+Elderly Patients (Age ≥ 65):
+- Higher prevalence of isolated systolic hypertension
+- Benefits of treatment well-established
+- Target SBP < 130 mm Hg if tolerated
+- Caution with orthostatic hypotension: check standing BP
+- Start low, titrate slowly in frail elderly
+
+Diabetes Mellitus:
+- Higher CV risk; aggressive BP control important
+- Target: < 130/80 mm Hg
+- Preferred agents: ACE inhibitors or ARBs (renoprotective)
+- Monitor for hyperkalemia, especially if eGFR < 60
+
+Chronic Kidney Disease:
+- ACE inhibitors or ARBs preferred (reduce proteinuria progression)
+- Target: < 130/80 mm Hg
+- Monitor creatinine and potassium closely
+- Accept up to 30% increase in creatinine after initiation
+- Avoid ACE/ARB if eGFR < 30 without specialist input
+
+====================
+7. MONITORING AND FOLLOW-UP
+====================
+
+Initial Follow-Up:
+- Reassess BP within 1 month of medication initiation or dose adjustment
+- More frequent follow-up (1-2 weeks) if Stage 2 HTN or symptoms
+- Monitor for side effects and medication adherence
+
+Long-Term Monitoring:
+- Once BP controlled: follow-up every 3-6 months
+- Annual laboratory monitoring: BMP, lipids, urinalysis
+- Home blood pressure monitoring encouraged
+- Self-measured BP average of 130/80 corresponds to office goal of 130/80
+
+Adherence Strategies:
+- Simplify regimen: once-daily dosing, combination pills
+- Address barriers: cost, side effects, health literacy
+- Regular medication reconciliation
+- Utilize pharmacists, nurses for education and support
+
+====================
+8. REFERENCES
+====================
+
+1. Whelton PK, et al. 2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults. J Am Coll Cardiol. 2018;71(19):e127-e248.
+
+2. SPRINT Research Group. A Randomized Trial of Intensive versus Standard Blood-Pressure Control. N Engl J Med. 2015;373(22):2103-2116.
+
+3. Williams B, et al. 2018 ESC/ESH Guidelines for the management of arterial hypertension. Eur Heart J. 2018;39(33):3021-3104.

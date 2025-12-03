@@ -46,11 +46,14 @@ This system automates medical document processing workflows through:
 - Document ID or raw text input support
 
 ### Part 3: RAG Pipeline
-- ✅ Medical guidelines knowledge base
-- ✅ Smart chunking (500 tokens, 100 overlap)
-- ✅ ChromaDB vector store
-- ✅ LLM-based reranking
+- ✅ Medical guidelines knowledge base (4 documents)
+- ✅ LLM-enhanced chunking (500 tokens, 100 overlap)
+- ✅ FAISS vector store with persistent storage
+- ✅ Query reformulation for better recall
+- ✅ LLM boolean relevance filtering
+- ✅ LLM-based confidence assessment
 - ✅ Source citations in answers
+- ✅ Enhanced anti-hallucination guardrails
 
 ### Part 4: Agent System
 - ✅ Entity extraction (patient, conditions, medications, vitals)
