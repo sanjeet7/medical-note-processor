@@ -1,129 +1,118 @@
-.PHONY: setup test run clean db-up db-down seed index-guidelines
+.PHONY: build rebuild run stop test clean logs help
 
-# ============================================================================
-# Setup & Installation
-# ============================================================================
+# =============================================================================
+# Quick Start Commands
+# =============================================================================
 
-setup:
-	python3 -m venv venv
-	. venv/bin/activate && pip install -r requirements.txt
-	cp .env.example .env
+build:  ## Build and initialize (skips if DB/index already exist)
+	@echo "🔨 Building and initializing..."
+	@echo "   (Skips seeding/indexing if already done)"
+	@echo ""
+	docker-compose up --build -d
+	@echo ""
+	@echo "⏳ Running ingestion pipeline (seeding DB, indexing guidelines)..."
+	@echo "   This may take 2-5 minutes on first run."
+	@echo "   Showing logs below (Ctrl+C to stop logs, container keeps running):"
+	@echo ""
+	@docker-compose logs -f api &
+	@while ! curl -s http://localhost:8000/health > /dev/null 2>&1; do \
+		sleep 3; \
+	done
+	@pkill -f "docker-compose logs" 2>/dev/null || true
+	@echo ""
+	@echo "✅ Build complete! API is ready."
+	@echo "   API: http://localhost:8000"
+	@echo "   Docs: http://localhost:8000/docs"
 
-# ============================================================================
+rebuild:  ## Force rebuild: re-seed DB and re-index guidelines
+	@echo "🔨 Rebuilding with fresh initialization..."
+	@echo ""
+	FORCE_INIT=true docker-compose up --build -d
+	@echo ""
+	@echo "⏳ Running ingestion pipeline (re-seeding DB, re-indexing guidelines)..."
+	@echo "   This may take 2-5 minutes."
+	@echo "   Showing logs below (Ctrl+C to stop logs, container keeps running):"
+	@echo ""
+	@docker-compose logs -f api &
+	@while ! curl -s http://localhost:8000/health > /dev/null 2>&1; do \
+		sleep 3; \
+	done
+	@pkill -f "docker-compose logs" 2>/dev/null || true
+	@echo ""
+	@echo "✅ Rebuild complete! API is ready."
+	@echo "   API: http://localhost:8000"
+	@echo "   Docs: http://localhost:8000/docs"
+
+run:  ## Start the application (quick, no build)
+	@echo "🚀 Starting Medical Note Processor..."
+	docker-compose up -d
+	@echo ""
+	@echo "✅ Started! API: http://localhost:8000"
+	@echo "   Docs: http://localhost:8000/docs"
+
+stop:  ## Stop all services
+	@echo "Stopping services..."
+	docker-compose down
+	@echo "✅ Stopped"
+
+logs:  ## View application logs
+	docker-compose logs -f api
+
+clean:  ## Stop services and remove all data (volumes, images)
+	@echo "🧹 Cleaning up..."
+	docker-compose down -v --rmi local 2>/dev/null || true
+	rm -rf __pycache__ .pytest_cache data/faiss_db
+	rm -rf test.db test_*.db
+	find . -name "*.pyc" -delete 2>/dev/null || true
+	find . -name "__pycache__" -type d -delete 2>/dev/null || true
+	@echo "✅ Cleaned"
+
+# =============================================================================
 # Testing
-# ============================================================================
+# =============================================================================
 
-test:
-	. venv/bin/activate && pytest tests/ -v
+test:  ## Run all tests
+	docker-compose exec api pytest tests/ -v || \
+		(echo "Container not running. Starting..." && \
+		docker-compose up -d && sleep 5 && \
+		docker-compose exec api pytest tests/ -v)
 
-test-part1:
-	. venv/bin/activate && pytest tests/test_part1.py -v
+test-part1:  ## Test Part 1: Backend
+	docker-compose exec api pytest tests/test_part1.py -v
 
-test-part2:
-	. venv/bin/activate && pytest tests/test_part2.py tests/test_llm_connection.py -v
+test-part2:  ## Test Part 2: LLM Integration
+	docker-compose exec api pytest tests/test_part2.py -v
 
-test-part3:
-	. venv/bin/activate && pytest tests/test_part3.py -v
+test-part3:  ## Test Part 3: RAG Pipeline
+	docker-compose exec api pytest tests/test_part3.py -v
 
-test-part4:
-	. venv/bin/activate && pytest tests/test_part4.py -v
+test-part4:  ## Test Part 4: Agent System
+	docker-compose exec api pytest tests/test_part4.py -v
 
-test-part4-unit:
-	@echo "Running Part 4 unit tests (mocked APIs)..."
-	. venv/bin/activate && pytest tests/test_part4.py -v -k "not TestRealNIHAPIs and not TestGoldenSetEvaluation"
+test-part5:  ## Test Part 5: FHIR Conversion
+	docker-compose exec api pytest tests/test_part5.py -v
 
-test-part4-api:
-	@echo "Running Part 4 real NIH API integration tests..."
-	. venv/bin/activate && pytest tests/test_part4.py::TestRealNIHAPIs -v -s
-
-test-part4-golden:
-	@echo "Running Part 4 golden set evaluation (requires OpenAI API key)..."
-	. venv/bin/activate && pytest tests/test_part4.py::TestGoldenSetEvaluation -v -s
-
-test-llm-connection:
-	. venv/bin/activate && pytest tests/test_llm_connection.py -v
-
-test-unit:
-	@echo "Running all unit tests (fast, mocked)..."
-	. venv/bin/activate && pytest tests/ -v -k "not TestRealNIHAPIs and not TestGoldenSetEvaluation and not TestRAGEvaluation"
-
-test-integration:
-	@echo "Running integration tests (real APIs)..."
-	. venv/bin/activate && pytest tests/test_part4.py::TestRealNIHAPIs -v -s
-
-# ============================================================================
-# Database & Infrastructure
-# ============================================================================
-
-db-up:
-	docker-compose -f docker-compose.dev.yml up -d
-	@echo "Waiting for database to be ready..."
-	@sleep 5
-
-db-down:
-	docker-compose -f docker-compose.dev.yml down
-
-seed: db-up
-	@echo "Checking if database needs seeding..."
-	@. venv/bin/activate && python scripts/seed_database.py || echo "Database already seeded or seeding failed"
-
-index-guidelines:
-	@echo "Indexing medical guidelines into FAISS..."
-	@. venv/bin/activate && python scripts/index_guidelines.py
-
-# ============================================================================
-# Running the Application
-# ============================================================================
-
-run: seed index-guidelines
-	. venv/bin/activate && uvicorn src.main:app --reload
-
-run-dev:
-	. venv/bin/activate && uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
-
-# ============================================================================
-# Cleanup
-# ============================================================================
-
-clean:
-	rm -rf __pycache__
-	rm -rf .pytest_cache
-	rm -rf data/faiss_db
-	rm -rf test.db test_part4.db
-	find . -name "*.pyc" -delete
-	find . -name "__pycache__" -type d -delete
-
-# ============================================================================
+# =============================================================================
 # Help
-# ============================================================================
+# =============================================================================
 
-help:
-	@echo "Medical Note Processor - Makefile Commands"
+help:  ## Show this help
+	@echo "Medical Note Processor - Commands"
 	@echo ""
 	@echo "Setup:"
-	@echo "  make setup              - Create venv, install deps, copy .env"
-	@echo ""
-	@echo "Testing:"
-	@echo "  make test               - Run all tests"
-	@echo "  make test-unit          - Run unit tests only (fast, mocked)"
-	@echo "  make test-integration   - Run integration tests (real NIH APIs)"
-	@echo "  make test-part1         - Run Part 1 tests (Backend)"
-	@echo "  make test-part2         - Run Part 2 tests (LLM)"
-	@echo "  make test-part3         - Run Part 3 tests (RAG)"
-	@echo "  make test-part4         - Run Part 4 tests (Agent)"
-	@echo "  make test-part4-unit    - Run Part 4 unit tests only"
-	@echo "  make test-part4-api     - Run Part 4 real NIH API tests"
-	@echo "  make test-part4-golden  - Run Part 4 golden set evaluation"
-	@echo ""
-	@echo "Database:"
-	@echo "  make db-up              - Start PostgreSQL container"
-	@echo "  make db-down            - Stop PostgreSQL container"
-	@echo "  make seed               - Seed database with SOAP notes"
-	@echo "  make index-guidelines   - Index medical guidelines for RAG"
+	@echo "  make build            Build and initialize (skips if already done)"
+	@echo "  make rebuild          Force fresh DB seed and guideline indexing"
 	@echo ""
 	@echo "Running:"
-	@echo "  make run                - Start the application (with seed + index)"
-	@echo "  make run-dev            - Start in development mode"
+	@echo "  make run              Start the application"
+	@echo "  make stop             Stop all services"
+	@echo "  make logs             View application logs"
+	@echo "  make clean            Remove all data and containers"
 	@echo ""
-	@echo "Cleanup:"
-	@echo "  make clean              - Remove cache and temp files"
+	@echo "Testing:"
+	@echo "  make test             Run all tests"
+	@echo "  make test-part1       Test Part 1: Backend"
+	@echo "  make test-part2       Test Part 2: LLM"
+	@echo "  make test-part3       Test Part 3: RAG"
+	@echo "  make test-part4       Test Part 4: Agent"
+	@echo "  make test-part5       Test Part 5: FHIR"

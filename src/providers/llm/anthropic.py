@@ -5,7 +5,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 class AnthropicProvider(LLMProvider):
     """Anthropic LLM provider with automatic retries"""
     
-    def __init__(self, api_key: str, model: str = "claude-3-opus-20240229"):
+    def __init__(self, api_key: str, model: str):
         self.client = AsyncAnthropic(api_key=api_key)
         self.model = model
     

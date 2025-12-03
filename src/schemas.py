@@ -117,6 +117,7 @@ class ExtractStructuredRequest(BaseModel):
     document_id: Optional[int] = Field(None, description="ID of document to extract from")
     text: Optional[str] = Field(None, min_length=1, description="Raw SOAP note text")
     include_trajectory: bool = Field(default=True, description="Include execution trajectory in response")
+    use_cache: bool = Field(default=True, description="Return cached extraction if available for document_id")
     
     @classmethod
     def validate_input(cls, values):
@@ -259,7 +260,37 @@ class StructuredNoteResponse(BaseModel):
 class ExtractStructuredResponse(BaseModel):
     """Response with structured data and optional trajectory"""
     success: bool = Field(..., description="Whether extraction succeeded")
+    extracted_note_id: Optional[int] = Field(None, description="ID of stored extraction for FHIR conversion")
+    document_id: Optional[int] = Field(None, description="Source document ID if extraction was from document")
     structured_data: Optional[StructuredNoteResponse] = Field(None, description="Extracted structured data")
     entity_counts: Optional[Dict[str, int]] = Field(None, description="Count of each entity type")
     trajectory: Optional[TrajectoryResponse] = Field(None, description="Execution trajectory for debugging")
     error: Optional[str] = Field(None, description="Error message if extraction failed")
+    cached: bool = Field(default=False, description="True if result was returned from cache")
+
+
+# ============================================================================
+# Part 5: FHIR Conversion Schemas
+# ============================================================================
+
+class ToFHIRRequest(BaseModel):
+    """Request for FHIR conversion"""
+    extracted_note_id: Optional[int] = Field(None, description="ID of extracted note to convert")
+    document_id: Optional[int] = Field(None, description="Document ID (uses latest extraction)")
+    structured_data: Optional[StructuredNoteResponse] = Field(None, description="Raw structured data to convert")
+    use_cache: bool = Field(default=True, description="Return cached FHIR bundle if available")
+    
+    @classmethod
+    def validate_input(cls, values):
+        if not values.get('extracted_note_id') and not values.get('document_id') and not values.get('structured_data'):
+            raise ValueError("One of extracted_note_id, document_id, or structured_data must be provided")
+        return values
+
+
+class ToFHIRResponse(BaseModel):
+    """FHIR Bundle response"""
+    success: bool = Field(..., description="Whether conversion succeeded")
+    bundle: Optional[Dict] = Field(None, description="FHIR Bundle containing all resources")
+    resource_counts: Optional[Dict[str, int]] = Field(None, description="Count of each FHIR resource type")
+    error: Optional[str] = Field(None, description="Error message if conversion failed")
+    cached: bool = Field(default=False, description="True if result was returned from cache")

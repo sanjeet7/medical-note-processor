@@ -9,8 +9,8 @@ from src.providers.llm.base import LLMProvider
 from unittest.mock import MagicMock, patch
 import pytest
 
-# Test database
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test_part2.db"
+# Test database (SQLite in /tmp for container compatibility)
+SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/test_part2.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

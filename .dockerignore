@@ -1,0 +1,51 @@
+# Git
+.git
+.gitignore
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Test databases
+*.db
+test.db
+test_*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files (secrets)
+.env
+
+# Documentation (not needed in container)
+docs/
+*.md
+!README.md
+
+# Test artifacts (tests included for reviewers)
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Development files
+docker-compose.dev.yml
+Makefile
+
+# FAISS index (will be created in container)
+data/faiss_db/
+

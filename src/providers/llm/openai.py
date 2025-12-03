@@ -5,7 +5,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 class OpenAIProvider(LLMProvider):
     """OpenAI LLM provider with automatic retries"""
     
-    def __init__(self, api_key: str, model: str = "gpt-5.1"):
+    def __init__(self, api_key: str, model: str):
         self.client = AsyncOpenAI(api_key=api_key)
         self.model = model
     

@@ -11,31 +11,42 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.rag.chunker import SmartChunker
-from src.rag.vector_store import FAISSVectorStore
-from src.providers.embeddings.factory import EmbeddingFactory  
-from src.config import settings
-
+def log(msg):
+    """Print with immediate flush for Docker logs"""
+    print(msg, flush=True)
 
 async def index_guidelines():
     """Index medical guidelines into FAISS vector store"""
     
-    print("🚀 Starting guideline indexing...")
-    print(f"📁 Loading guidelines from: data/medical_guidelines/")
-    print(f"⚙️  Chunk size: {settings.chunk_size} tokens, Overlap: {settings.chunk_overlap} tokens")
-    print(f"🤖 Metadata LLM: {settings.metadata_llm_model}")
-    print(f"🔢 Embedding model: {settings.embedding_model}\n")
+    log("🚀 Starting guideline indexing...")
+    
+    # Import dependencies
+    try:
+        from src.config import settings
+        from src.rag.chunker import SmartChunker
+        from src.rag.vector_store import FAISSVectorStore
+        from src.providers.embeddings.factory import EmbeddingFactory
+    except Exception as e:
+        log(f"❌ Import error: {e}")
+        import traceback
+        traceback.print_exc()
+        return
     
     # Initialize components
-    chunker = SmartChunker(
-        chunk_size=settings.chunk_size,
-        chunk_overlap=settings.chunk_overlap
-    )
-    vector_store = FAISSVectorStore()
-    embedding_provider = EmbeddingFactory.create()
+    try:
+        chunker = SmartChunker(
+            chunk_size=settings.chunk_size,
+            chunk_overlap=settings.chunk_overlap
+        )
+        vector_store = FAISSVectorStore()
+        embedding_provider = EmbeddingFactory.create()
+    except Exception as e:
+        log(f"❌ Initialization error: {e}")
+        import traceback
+        traceback.print_exc()
+        return
     
     # Clear existing collection (for re-indexing)
-    print("🗑️  Clearing existing collection...")
     vector_store.delete_collection()
     vector_store = FAISSVectorStore()  # Recreate
     
@@ -44,49 +55,49 @@ async def index_guidelines():
     guideline_files = list(guidelines_dir.glob("*.txt"))
     
     if not guideline_files:
-        print("❌ No guideline files found!")
+        log("❌ No guideline files found!")
         return
     
-    print(f"📄 Found {len(guideline_files)} guideline files\n")
+    log(f"📄 Found {len(guideline_files)} guideline files")
     
     total_chunks = 0
     
     # Process each guideline
-    for guideline_file in sorted(guideline_files):
+    for i, guideline_file in enumerate(sorted(guideline_files), 1):
         doc_name = guideline_file.stem
-        print(f"📖 Processing: {doc_name}")
+        log(f"   [{i}/{len(guideline_files)}] {doc_name}...")
         
         # Read document
         with open(guideline_file, 'r', encoding='utf-8') as f:
             text = f.read()
         
         # Chunk with LLM metadata extraction
-        print(f"   ✂️  Chunking (with LLM metadata extraction)...")
-        chunks = await chunker.chunk_with_metadata(text, doc_name)
-        print(f"   ✅ Created {len(chunks)} chunks")
+        try:
+            chunks = await chunker.chunk_with_metadata(text, doc_name)
+        except Exception as e:
+            log(f"      ❌ Chunking failed: {e}")
+            continue
         
         # Generate embeddings
-        print(f"   🔢 Generating embeddings...")
-        chunk_texts = [chunk.text for chunk in chunks]
-        embeddings = await embedding_provider.embed_documents(chunk_texts)
-        print(f"   ✅ Generated {len(embeddings)} embeddings")
+        try:
+            chunk_texts = [chunk.text for chunk in chunks]
+            embeddings = await embedding_provider.embed_documents(chunk_texts)
+        except Exception as e:
+            log(f"      ❌ Embedding failed: {e}")
+            continue
         
         # Store in vector database
-        print(f"   💾 Storing in FAISS...")
-        vector_store.add_documents(chunks, embeddings, doc_name)
-        print(f"   ✅ Stored {len(chunks)} chunks\n")
+        try:
+            vector_store.add_documents(chunks, embeddings, doc_name)
+        except Exception as e:
+            log(f"      ❌ Storage failed: {e}")
+            continue
         
         total_chunks += len(chunks)
     
     # Summary
-    collection_count = vector_store.get_collection_count()
-    print("=" * 60)
-    print(f"✅ Indexing complete!")
-    print(f"📚 Indexed {len(guideline_files)} documents")
-    print(f"📊 Total chunks: {total_chunks}")
-    print(f"💾 Chunks in FAISS: {collection_count}")
-    print(f"📂 Persisted to: {settings.faiss_db_path}")
-    print("=" * 60)
+    log("")
+    log(f"✅ Indexing complete! {total_chunks} chunks from {len(guideline_files)} documents")
 
 
 if __name__ == "__main__":

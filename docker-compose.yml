@@ -1,0 +1,74 @@
+# Medical Note Processor - Docker Compose
+# 
+# Quick Start:
+#   cp .env.example .env
+#   # Edit .env with your OPENAI_API_KEY
+#   docker-compose up --build
+#
+# Force re-initialization (re-seed database and re-index guidelines):
+#   FORCE_INIT=true docker-compose up --build
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: medical_notes_db
+    environment:
+      POSTGRES_USER: medical_user
+      POSTGRES_PASSWORD: medical_pass
+      POSTGRES_DB: medical_notes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medical_user -d medical_notes"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # FastAPI Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medical_notes_api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://medical_user:medical_pass@postgres:5432/medical_notes
+      # LLM Configuration (REQUIRED - set in .env)
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_PROVIDER=${LLM_PROVIDER:-openai}
+      - LLM_MODEL=${LLM_MODEL}
+      - METADATA_LLM_MODEL=${METADATA_LLM_MODEL:-}
+      # Embedding Configuration (REQUIRED - set in .env)
+      - EMBEDDING_PROVIDER=${EMBEDDING_PROVIDER:-openai}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+      - EMBEDDING_API_KEY=${EMBEDDING_API_KEY:-}
+      # Initialization
+      - FORCE_INIT=${FORCE_INIT:-false}
+    volumes:
+      # Persist FAISS index between restarts
+      - faiss_data:/app/data/faiss_db
+      # Mount source for hot-reloading during development
+      - ./src:/app/src:ro
+      - ./scripts:/app/scripts:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: medical_notes_postgres_data
+  faiss_data:
+    name: medical_notes_faiss_data
+

@@ -9,13 +9,13 @@ from .base import EmbeddingProvider
 class OpenAIEmbeddingProvider(EmbeddingProvider):
     """OpenAI embedding provider with batch processing and automatic retries"""
     
-    def __init__(self, api_key: str, model: str = "text-embedding-3-small"):
+    def __init__(self, api_key: str, model: str):
         """
         Initialize OpenAI embedding provider.
         
         Args:
             api_key: OpenAI API key
-            model: Embedding model name (default: text-embedding-3-small)
+            model: Embedding model name (e.g., 'text-embedding-3-small')
         """
         self.client = AsyncOpenAI(api_key=api_key)
         self.model = model

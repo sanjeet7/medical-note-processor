@@ -98,8 +98,9 @@ class SmartChunker:
         """
         from src.providers.llm.factory import LLMFactory
         
-        # Use metadata LLM for cost-effective chunking
-        llm = LLMFactory.create(model=settings.metadata_llm_model)
+        # Use metadata LLM for cost-effective chunking (falls back to main LLM if not set)
+        metadata_model = settings.metadata_llm_model or settings.llm_model
+        llm = LLMFactory.create(model=metadata_model)
         
         # Split text into manageable blocks for the LLM to analyze
         # We'll ask the LLM to identify logical break points
@@ -169,7 +170,7 @@ class SmartChunker:
     
     async def extract_metadata_with_llm(self, chunk_text: str) -> Dict[str, any]:
         """
-        Extract metadata from chunk using cheaper LLM (gpt-4o-mini).
+        Extract metadata from chunk using cheaper LLM (metadata_llm_model or llm_model).
         
         Args:
             chunk_text: Text to extract metadata from
@@ -177,12 +178,10 @@ class SmartChunker:
         Returns:
             Dictionary with section_title and key_concepts
         """
-        # Create a provider with metadata model
-        from src.providers.llm.openai import OpenAIProvider
-        metadata_llm = OpenAIProvider(
-            api_key=settings.llm_api_key,
-            model=settings.metadata_llm_model
-        )
+        # Use metadata LLM for cost-effective extraction (falls back to main LLM if not set)
+        from src.providers.llm.factory import LLMFactory
+        metadata_model = settings.metadata_llm_model or settings.llm_model
+        metadata_llm = LLMFactory.create(model=metadata_model)
         
         prompt = f"""Analyze this medical guideline chunk and extract metadata.
 Return ONLY a JSON object with:
@@ -196,10 +195,16 @@ Output JSON only:"""
         
         try:
             response = await metadata_llm.generate(prompt)
+            # Clean response - remove markdown code blocks if present
+            response = response.strip()
+            if response.startswith("```"):
+                # Remove ```json and ``` wrapping
+                lines = response.split("\n")
+                response = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
             # Parse JSON response
             metadata = json.loads(response.strip())
             return metadata
-        except Exception as e:
+        except Exception:
             # Fallback to empty metadata if LLM fails
             return {
                 'section_title': 'Unknown',
@@ -221,7 +226,7 @@ Output JSON only:"""
         Returns:
             List of Chunks with enriched metadata
         """
-        # Initial chunking
+        # Initial chunking (paragraph-based)
         chunks = await self.chunk_document(text, doc_name, use_llm_boundaries=True)
         
         # Enrich with LLM metadata (using cheaper model)

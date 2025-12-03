@@ -413,6 +413,33 @@ def _convert_trajectory(trajectory) -> TrajectoryResponse:
     )
 
 
+def _count_fhir_resources(bundle_dict: dict) -> dict:
+    """Count resources in a FHIR Bundle by type."""
+    counts = {}
+    entries = bundle_dict.get("entry", [])
+    for entry in entries:
+        resource = entry.get("resource", {})
+        resource_type = resource.get("resourceType", "Unknown")
+        
+        # Differentiate Observation types by category
+        if resource_type == "Observation":
+            categories = resource.get("category", [])
+            for cat in categories:
+                codings = cat.get("coding", [])
+                for coding in codings:
+                    code = coding.get("code", "")
+                    if code == "vital-signs":
+                        resource_type = "Observation (vital-signs)"
+                        break
+                    elif code == "laboratory":
+                        resource_type = "Observation (laboratory)"
+                        break
+        
+        counts[resource_type] = counts.get(resource_type, 0) + 1
+    
+    return counts
+
+
 @app.post("/extract_structured", response_model=ExtractStructuredResponse)
 async def extract_structured(
     request: ExtractStructuredRequest,
@@ -427,16 +454,25 @@ async def extract_structured(
     3. RxNorm Enrichment (NIH API) - Look up medication codes
     4. Validation (Pydantic) - Validate and assemble final output
     
+    Caching:
+    - If use_cache=True (default) and document_id is provided, returns cached
+      extraction if one exists for that document
+    - Set use_cache=False to force re-extraction
+    
     Returns:
+    - extracted_note_id: ID of stored extraction (for use with /to_fhir)
+    - document_id: Source document ID (if extraction was from document)
     - Structured data with patient info, conditions (with ICD-10), medications (with RxNorm),
       vital signs, lab results, procedures, and care plan activities
     - Optional execution trajectory for debugging
     - Entity counts for quick summary
+    - cached: True if result was returned from cache
     
-    The output is FHIR-aligned for easy conversion in Part 5.
+    The output is FHIR-aligned and stored in database for FHIR conversion.
     """
     try:
         # Get text from document_id or use provided text
+        document_id = None
         if request.document_id:
             document = db.query(models.Document).filter(
                 models.Document.id == request.document_id
@@ -444,6 +480,24 @@ async def extract_structured(
             if not document:
                 raise HTTPException(status_code=404, detail="Document not found")
             note_text = document.content
+            document_id = request.document_id
+            
+            # Check cache if enabled
+            if request.use_cache:
+                cached_extraction = db.query(models.ExtractedNote).filter(
+                    models.ExtractedNote.document_id == document_id
+                ).order_by(models.ExtractedNote.created_at.desc()).first()
+                
+                if cached_extraction:
+                    # Return cached extraction
+                    return ExtractStructuredResponse(
+                        success=True,
+                        extracted_note_id=cached_extraction.id,
+                        document_id=document_id,
+                        structured_data=StructuredNoteResponse(**cached_extraction.structured_data),
+                        entity_counts=cached_extraction.entity_counts,
+                        cached=True
+                    )
         elif request.text:
             note_text = request.text
         else:
@@ -459,12 +513,25 @@ async def extract_structured(
         # Build response
         response = ExtractStructuredResponse(
             success=result.success,
-            error=result.error
+            document_id=document_id,
+            error=result.error,
+            cached=False
         )
         
         if result.success and result.structured_note:
             response.structured_data = _convert_structured_note(result.structured_note)
             response.entity_counts = result.structured_note.entity_count()
+            
+            # Store extraction in database for FHIR conversion
+            extracted_note = models.ExtractedNote(
+                document_id=document_id,
+                structured_data=response.structured_data.model_dump(),
+                entity_counts=response.entity_counts
+            )
+            db.add(extracted_note)
+            db.commit()
+            db.refresh(extracted_note)
+            response.extracted_note_id = extracted_note.id
         
         if request.include_trajectory and result.trajectory:
             response.trajectory = _convert_trajectory(result.trajectory)
@@ -477,4 +544,138 @@ async def extract_structured(
         raise HTTPException(
             status_code=500,
             detail=f"Structured extraction failed: {str(e)}"
+        )
+
+
+# ============================================================================
+# PART 5 ENDPOINT - FHIR Conversion
+# ============================================================================
+
+from .fhir import FHIRConverter
+from .schemas import ToFHIRRequest, ToFHIRResponse
+
+
+@app.post("/to_fhir", response_model=ToFHIRResponse)
+async def convert_to_fhir(
+    request: ToFHIRRequest,
+    db: Session = Depends(database.get_db)
+):
+    """
+    Convert structured medical data to FHIR R5 Bundle.
+    
+    Accepts one of:
+    - extracted_note_id: ID of a previously extracted note
+    - document_id: ID of source document (uses latest extraction)
+    - structured_data: Raw structured data to convert directly
+    
+    Caching:
+    - If use_cache=True (default) and using extracted_note_id or document_id,
+      returns cached FHIR bundle if one exists
+    - Set use_cache=False to force re-conversion
+    
+    Returns:
+    - FHIR Bundle (collection type) containing:
+      - Patient resource
+      - Condition resources (with ICD-10 codes)
+      - MedicationRequest resources (with RxNorm codes)
+      - Observation resources (vital signs and lab results)
+      - Procedure resources
+      - CarePlan resource
+    - Resource counts for each type
+    - cached: True if result was returned from cache
+    
+    The output is FHIR R5 spec-compliant using the fhir.resources library.
+    """
+    try:
+        structured_data = None
+        extracted_note = None
+        
+        # Get structured data from one of the sources
+        if request.extracted_note_id:
+            # Look up by extracted_note_id
+            extracted_note = db.query(models.ExtractedNote).filter(
+                models.ExtractedNote.id == request.extracted_note_id
+            ).first()
+            if not extracted_note:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Extracted note with ID {request.extracted_note_id} not found"
+                )
+            
+            # Check for cached FHIR bundle
+            if request.use_cache and extracted_note.fhir_bundle:
+                return ToFHIRResponse(
+                    success=True,
+                    bundle=extracted_note.fhir_bundle,
+                    resource_counts=_count_fhir_resources(extracted_note.fhir_bundle),
+                    cached=True
+                )
+            
+            structured_data = extracted_note.structured_data
+            
+        elif request.document_id:
+            # Look up latest extraction for document
+            extracted_note = db.query(models.ExtractedNote).filter(
+                models.ExtractedNote.document_id == request.document_id
+            ).order_by(models.ExtractedNote.created_at.desc()).first()
+            if not extracted_note:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"No extraction found for document ID {request.document_id}. "
+                           f"Run /extract_structured first."
+                )
+            
+            # Check for cached FHIR bundle
+            if request.use_cache and extracted_note.fhir_bundle:
+                return ToFHIRResponse(
+                    success=True,
+                    bundle=extracted_note.fhir_bundle,
+                    resource_counts=_count_fhir_resources(extracted_note.fhir_bundle),
+                    cached=True
+                )
+            
+            structured_data = extracted_note.structured_data
+            
+        elif request.structured_data:
+            # Use provided structured data directly (no caching possible)
+            structured_data = request.structured_data.model_dump()
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="One of extracted_note_id, document_id, or structured_data must be provided"
+            )
+        
+        # Convert to FHIR
+        converter = FHIRConverter()
+        result = converter.convert(structured_data)
+        
+        if result.success:
+            # Convert bundle to JSON-serializable dict (handles datetime, etc.)
+            import json
+            bundle_json = json.loads(result.bundle.json(exclude_none=True))
+            
+            # Cache the FHIR bundle if we have an extracted_note
+            if extracted_note:
+                extracted_note.fhir_bundle = bundle_json
+                db.commit()
+            
+            return ToFHIRResponse(
+                success=True,
+                bundle=bundle_json,
+                resource_counts=result.resource_counts,
+                cached=False
+            )
+        else:
+            return ToFHIRResponse(
+                success=False,
+                error=result.error,
+                cached=False
+            )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"FHIR conversion failed: {str(e)}"
         )
